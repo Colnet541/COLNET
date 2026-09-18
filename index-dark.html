@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>COLNET — Federal College of Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1419;
+    --bg-soft: #161B22;
+    --card: #0D1117;
+    --ink: #E6EDF3;
+    --ink-soft: #8B949E;
+    --line: #30363D;
+    --primary: #79C0FF;
+    --accent: #FF7B72;
+    --green: #3FB950;
+    --gold: #D4AF37;
+    --shadow: 0 3px 12px rgba(0,0,0,0.4);
+    --radius: 12px;
+    font-family: "Inter", -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); height: 100%; }
+  body { display: flex; justify-content: center; }
+  #app, #authScreen { width: 100%; max-width: 500px; min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); position: relative; }
+  h1, h2, h3 { font-family: "Inter", sans-serif; margin: 0; font-weight: 700; }
+
+  /* Auth */
+  #authScreen { justify-content: center; padding: 32px 24px; }
+  .auth-logo { text-align: center; margin-bottom: 16px; }
+  .auth-logo .wordmark { font-size: 48px; font-weight: 800; letter-spacing: -2px; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .auth-sub { text-align: center; color: var(--ink-soft); font-size: 14px; margin-bottom: 32px; }
+  .auth-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+  .auth-tabs { display: flex; margin-bottom: 20px; gap: 8px; }
+  .auth-tab { flex: 1; text-align: center; padding: 12px 0; font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; color: var(--ink-soft); background: var(--bg-soft); border: none; transition: all 0.2s; }
+  .auth-tab.active { background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); font-weight: 700; }
+  .field-label { font-size: 12px; color: var(--ink-soft); margin: 14px 0 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  input.authinput {
+    width: 100%; border: 1px solid var(--line); background: var(--bg-soft); color: var(--ink);
+    border-radius: 8px; padding: 11px 12px; font-size: 14px; font-family: inherit; outline: none; transition: all 0.2s;
+  }
+  input.authinput:focus { border-color: var(--primary); background: var(--card); box-shadow: 0 0 0 3px rgba(121,192,255,0.1); }
+  .authbtn {
+    width: 100%; margin-top: 20px; background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--bg); border: none; border-radius: 8px; padding: 12px 0; font-size: 14px; font-weight: 700;
+    font-family: inherit; cursor: pointer; transition: all 0.2s;
+  }
+  .authbtn:active { opacity: 0.9; }
+  .admin-toggle { text-align: center; margin-top: 14px; font-size: 12px; color: var(--primary); cursor: pointer; text-decoration: underline; }
+  .auth-error { background: rgba(255,123,114,0.1); color: var(--accent); font-size: 12px; padding: 10px 12px; border-radius: 8px; margin-top: 12px; display: none; border-left: 3px solid var(--accent); }
+  .auth-note { font-size: 11px; color: var(--ink-soft); text-align: center; margin-top: 20px; line-height: 1.6; }
+
+  /* Header */
+  header.top {
+    padding: 18px 16px;
+    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .brandrow { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .wordmark { font-size: 24px; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -1px; }
+  .campus-tag { font-size: 11px; color: var(--ink-soft); margin-top: 4px; }
+  .pulse { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .pulse::-webkit-scrollbar { display: none; }
+  .pulse-chip { flex: 0 0 auto; background: var(--bg-soft); color: var(--ink-soft); font-size: 11px; padding: 6px 11px; border-radius: 20px; white-space: nowrap; border: 1px solid var(--line); }
+
+  main { flex: 1; padding: 16px 12px 110px; overflow-y: auto; }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* Composer */
+  .composer { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); margin-bottom: 14px; }
+  .composer textarea {
+    width: 100%; border: none; background: transparent; resize: none; font-family: inherit;
+    font-size: 14px; color: var(--ink); min-height: 45px; outline: none;
+  }
+  .composer textarea::placeholder { color: var(--ink-soft); }
+  .composer-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; gap: 8px; flex-wrap: wrap; }
+  .imgbtn {
+    background: var(--bg-soft); border: 1px solid var(--line); color: var(--ink-soft);
+    border-radius: 6px; padding: 8px 12px; font-size: 12px; font-family: inherit; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .imgbtn:hover { border-color: var(--primary); color: var(--primary); }
+  #imageInput { display: none; }
+  .img-preview { max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; }
+  select.tagpick {
+    border: 1px solid var(--line); background: var(--bg-soft); color: var(--ink);
+    border-radius: 6px; padding: 8px 10px; font-size: 12px; font-family: inherit; cursor: pointer;
+  }
+  button.postbtn {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--bg); border: none; border-radius: 6px; padding: 8px 16px; font-size: 13px;
+    font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s;
+  }
+  button.postbtn:active { opacity: 0.9; }
+
+  /* Posts */
+  .post {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px; margin-bottom: 10px; box-shadow: var(--shadow);
+  }
+  .post-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .post-author { display: flex; align-items: center; gap: 9px; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--bg); display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; flex: 0 0 auto;
+  }
+  .post-author-name { font-size: 13px; font-weight: 700; }
+  .post-time { font-size: 11px; color: var(--ink-soft); }
+  .tag { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 12px; flex: 0 0 auto; background: rgba(121,192,255,0.15); color: var(--primary); }
+  .tag-announcement { background: rgba(212,175,55,0.15); color: var(--gold); }
+  .tag-event { background: rgba(63,185,80,0.15); color: var(--green); }
+  .post-text { font-size: 14px; line-height: 1.5; margin-bottom: 10px; white-space: pre-wrap; word-break: break-word; }
+  .post-image { width: 100%; border-radius: 8px; margin-bottom: 10px; display: block; }
+  .post-actions { display: flex; gap: 16px; font-size: 12px; color: var(--ink-soft); }
+  .post-actions button { background: none; border: none; color: var(--ink-soft); font-family: inherit; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; padding: 0; transition: all 0.2s; }
+  .post-actions button:hover { color: var(--primary); }
+  .post-actions button.liked { color: var(--accent); font-weight: 700; }
+  .comments-block { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; display: none; }
+  .comments-block.open { display: block; }
+  .comment { display: flex; gap: 6px; margin-bottom: 8px; font-size: 12px; }
+  .comment b { font-weight: 700; }
+  .comment-input-row { display: flex; gap: 6px; margin-top: 8px; }
+  .comment-input-row input { flex: 1; border: 1px solid var(--line); background: var(--bg-soft); border-radius: 6px; padding: 7px 10px; font-size: 12px; font-family: inherit; color: var(--ink); outline: none; }
+  .comment-input-row button { background: var(--primary); color: var(--bg); border: none; border-radius: 6px; padding: 0 12px; font-size: 12px; font-family: inherit; cursor: pointer; }
+
+  /* Rooms */
+  .room {
+    display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .room:active { opacity: 0.8; }
+  .room-icon { width: 44px; height: 44px; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 20px; flex: 0 0 auto; }
+  .room-body { flex: 1; min-width: 0; }
+  .room-name { font-size: 14px; font-weight: 700; }
+  .room-last { font-size: 12px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Chat */
+  .chat-header {
+    display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--bg); border-radius: 0 0 16px 16px; box-shadow: var(--shadow);
+  }
+  .backbtn { background: rgba(255,255,255,0.2); border: none; color: var(--bg); width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .chat-title { font-size: 15px; font-weight: 700; }
+  .chat-sub { font-size: 11px; color: rgba(255,255,255,0.9); }
+  .chat-body { padding: 12px 14px 110px; display: flex; flex-direction: column; gap: 8px; }
+  .msg { max-width: 80%; padding: 10px 12px; border-radius: 12px; font-size: 13px; line-height: 1.4; box-shadow: var(--shadow); word-break: break-word; }
+  .msg-them { align-self: flex-start; background: var(--bg-soft); color: var(--ink); border: 1px solid var(--line); }
+  .msg-me { align-self: flex-end; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); }
+  .msg-sender { font-size: 11px; font-weight: 700; color: var(--ink-soft); margin-bottom: 2px; }
+  .msg-time { font-size: 10px; opacity: 0.7; margin-top: 2px; display: block; }
+  .chat-input-bar {
+    position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 500px; display: flex; gap: 8px; padding: 10px 14px;
+    background: var(--bg); border-top: 1px solid var(--line);
+  }
+  .chat-input-bar input { flex: 1; border: 1px solid var(--line); background: var(--bg-soft); border-radius: 6px; padding: 10px 12px; font-size: 13px; color: var(--ink); font-family: inherit; outline: none; }
+  .sendbtn { background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 16px; cursor: pointer; flex: 0 0 auto; }
+
+  .empty { text-align: center; padding: 40px 20px; color: var(--ink-soft); }
+  .empty h3 { font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+  .section-title { font-size: 16px; font-weight: 700; margin: 20px 0 12px; }
+
+  nav.bottom {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 500px; display: flex; background: var(--card);
+    border-top: 1px solid var(--line); padding: 8px 6px calc(8px + env(safe-area-inset-bottom)); z-index: 20;
+  }
+  .navbtn {
+    flex: 1; background: none; border: none; font-family: inherit;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    color: var(--ink-soft); font-size: 10px; cursor: pointer; padding: 4px 0;
+    transition: all 0.2s;
+  }
+  .navbtn .icon { font-size: 18px; }
+  .navbtn.active { color: var(--primary); font-weight: 700; }
+  .profile-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
+  .pname { font-size: 18px; font-weight: 800; }
+  .pmeta { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+  .admin-badge { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 12px; margin-top: 8px; }
+  .logoutbtn {
+    width: 100%; margin-top: 14px; background: rgba(255,123,114,0.1);
+    color: var(--accent); border: none; border-radius: 6px; padding: 10px 0;
+    font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer;
+  }
+  #newDmModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 30; align-items: flex-end; justify-content: center; }
+  #newDmModal.open { display: flex; }
+  .modal-sheet { background: var(--card); width: 100%; max-width: 500px; border-radius: 16px 16px 0 0; padding: 20px; border: 1px solid var(--line); border-bottom: none; }
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="authScreen">
+  <div class="auth-logo"><div class="wordmark">COLNET</div></div>
+  <div class="auth-sub">Federal College of Education — live campus gist</div>
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabLogin" onclick="setAuthMode('login')">Log in</div>
+      <div class="auth-tab" id="tabSignup" onclick="setAuthMode('signup')">Sign up</div>
+    </div>
+
+    <div id="signupFields" style="display:none;">
+      <div class="field-label">Full name</div>
+      <input class="authinput" id="suName" placeholder="e.g. Blessing Nwachukwu">
+      <div class="field-label">Username</div>
+      <input class="authinput" id="suUsername" placeholder="e.g. blessing_n">
+    </div>
+
+    <div class="field-label">Matric / Reg number</div>
+    <input class="authinput" id="matric" placeholder="e.g. FCE/CS/22/1045">
+    <div class="field-label">Passcode</div>
+    <input class="authinput" id="passcode" type="password" placeholder="Choose or enter your passcode">
+
+    <div id="adminCodeField" style="display:none;">
+      <div class="field-label">Admin setup phrase</div>
+      <input class="authinput" id="adminCode" type="password" placeholder="Only for the app admin">
+    </div>
+
+    <button class="authbtn" id="authSubmitBtn" onclick="submitAuth()">Log in</button>
+    <div class="admin-toggle" onclick="toggleAdminField()">Setting up as admin?</div>
+    <div class="auth-error" id="authError"></div>
+  </div>
+  <div class="auth-note">Your passcode is stored in COLNET's shared database — don't reuse a password you use elsewhere.</div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" style="display:none;">
+
+  <div class="view active" id="view-feed">
+    <header class="top">
+      <div class="brandrow"><div class="wordmark">COLNET</div></div>
+      <div class="campus-tag">Federal College of Education</div>
+      <div class="pulse" id="pulseRow"></div>
+    </header>
+    <main>
+      <div class="composer">
+        <textarea id="postText" placeholder="What's happening on campus? Drop gist, updates, news..."></textarea>
+        <img id="imagePreview" class="img-preview" style="display:none;">
+        <div class="composer-row">
+          <button class="imgbtn" onclick="document.getElementById('imageInput').click()">📷 Add image</button>
+          <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
+          <select class="tagpick" id="postTag">
+            <option value="gist">💬 Gist</option>
+            <option value="announcement">📢 Announcement</option>
+            <option value="event">📅 Event</option>
+          </select>
+          <button class="postbtn" onclick="submitPost()">Post</button>
+        </div>
+      </div>
+      <div id="feedList"></div>
+    </main>
+  </div>
+
+  <div class="view" id="view-rooms">
+    <header class="top"><div class="wordmark">COLNET</div><div class="campus-tag">Group chats</div></header>
+    <main><div id="roomsList"></div></main>
+  </div>
+
+  <div class="view" id="view-dms">
+    <header class="top">
+      <div class="brandrow">
+        <div class="wordmark" style="font-size:20px;">Messages</div>
+        <button class="imgbtn" style="background:linear-gradient(135deg, var(--primary), var(--accent)); color:var(--bg); border:none;" onclick="openNewDm()">+ New</button>
+      </div>
+    </header>
+    <main><div id="dmList"></div></main>
+  </div>
+
+  <div class="view" id="view-chat">
+    <div class="chat-header">
+      <button class="backbtn" onclick="closeChat()">←</button>
+      <div><div class="chat-title" id="chatTitle">Room</div><div class="chat-sub" id="chatSub">members</div></div>
+    </div>
+    <main><div class="chat-body" id="chatBody"></div></main>
+    <div class="chat-input-bar" id="chatInputBar">
+      <input id="chatInput" type="text" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendMessage()">
+      <button class="sendbtn" onclick="sendMessage()">⬆</button>
+    </div>
+  </div>
+
+  <div class="view" id="view-calendar">
+    <header class="top"><div class="wordmark" style="font-size:20px;">Events</div></header>
+    <main>
+      <div class="composer">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input id="evTitle" placeholder="Event title" class="authinput" style="flex:1 1 100%;">
+          <input id="evDate" type="date" class="authinput" style="flex:1;">
+          <input id="evLoc" placeholder="Location" class="authinput" style="flex:1;">
+        </div>
+        <div class="composer-row" style="justify-content:flex-end; margin-top:8px;"><button class="postbtn" onclick="submitEvent()">Add</button></div>
+      </div>
+      <div id="calendarList"></div>
+    </main>
+  </div>
+
+  <div class="view" id="view-more">
+    <header class="top"><div class="wordmark" style="font-size:20px;">Profile</div></header>
+    <main>
+      <div class="profile-card">
+        <div class="pname" id="profileName">—</div>
+        <div class="pmeta" id="profileMeta">—</div>
+        <div id="profileAdminBadge"></div>
+        <button class="logoutbtn" style="margin-top:14px;" onclick="logout()">Log out</button>
+      </div>
+    </main>
+  </div>
+
+  <div class="view" id="view-admin">
+    <header class="top"><div class="wordmark" style="font-size:20px;">Admin</div></header>
+    <main>
+      <h3 class="section-title">Users (<span id="userCount">0</span>)</h3>
+      <div id="adminUsers"></div>
+      <h3 class="section-title">Posts (<span id="postCount">0</span>)</h3>
+      <div id="adminPosts"></div>
+    </main>
+  </div>
+
+  <nav class="bottom">
+    <button class="navbtn active" data-view="feed" onclick="switchTab('feed')"><span class="icon">🏠</span>Feed</button>
+    <button class="navbtn" data-view="rooms" onclick="switchTab('rooms')"><span class="icon">💬</span>Rooms</button>
+    <button class="navbtn" data-view="dms" onclick="switchTab('dms')"><span class="icon">✉️</span>DMs</button>
+    <button class="navbtn" data-view="calendar" onclick="switchTab('calendar')"><span class="icon">📅</span>Events</button>
+    <button class="navbtn" data-view="more" onclick="switchTab('more')"><span class="icon">⚙️</span>More</button>
+    <button class="navbtn" data-view="admin" id="adminNavBtn" style="display:none;" onclick="switchTab('admin')"><span class="icon">🔑</span>Admin</button>
+  </nav>
+</div>
+
+<!-- NEW DM MODAL -->
+<div id="newDmModal">
+  <div class="modal-sheet">
+    <h3 class="section-title" style="font-size:15px;">New message</h3>
+    <div class="field-label">Their matric / reg number</div>
+    <input class="authinput" id="dmTargetMatric" placeholder="e.g. FCE/CS/22/1045">
+    <div class="composer-row" style="margin-top:14px;">
+      <button class="imgbtn" onclick="closeNewDm()">Cancel</button>
+      <button class="postbtn" onclick="startNewDm()">Start</button>
+    </div>
+    <div class="auth-error" id="dmError"></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import {
+  getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, addDoc,
+  onSnapshot, query, orderBy, limit, where, serverTimestamp, arrayUnion, arrayRemove, getDocs
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAivZfvxDFVTGz57wPeGByhTFKqhjPlvck",
+  authDomain: "colnet-1af4b.firebaseapp.com",
+  projectId: "colnet-1af4b",
+  storageBucket: "colnet-1af4b.firebasestorage.app",
+  messagingSenderId: "71299486324",
+  appId: "1:71299486324:web:aae5af8f72e0cf0c303721"
+};
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+const storage = getStorage(fbApp);
+
+const ADMIN_PHRASE = "Colnet-crown-256291";
+const ROOMS = [
+  { id: "general", icon: "🏫", name: "General Gist", desc: "Campus-wide chat" },
+  { id: "100l", icon: "🎓", name: "100L Freshers", desc: "New students" },
+  { id: "examruns", icon: "📝", name: "Exam Runs", desc: "Study & questions" },
+  { id: "hostel", icon: "🛏️", name: "Hostel Life", desc: "Room swaps & gist" },
+  { id: "marketplace", icon: "🛍️", name: "Buy & Sell", desc: "Textbooks & items" }
+];
+
+const tagLabels = { announcement: { label: "Announcement" }, gist: { label: "Gist" }, event: { label: "Event" } };
+
+let me = null, currentThread = null, unsubChat = null, unsubFeed = null, unsubDmList = null, authMode = "login", selectedImage = null;
+
+function escapeHtml(str) { const div = document.createElement("div"); div.textContent = str == null ? "" : String(str); return div.innerHTML; }
+function initials(name) { return (name || "?").split(" ").map(w => w[0]).slice(0,2).join("").toUpperCase(); }
+function fmtTime(ts) { if (!ts) return "just now"; const d = ts.toDate ? ts.toDate() : new Date(ts); return d.toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }); }
+function dmIdFor(a, b) { return [a, b].sort().join("__"); }
+
+window.previewImage = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  selectedImage = file;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const preview = document.getElementById("imagePreview");
+    preview.src = e.target.result;
+    preview.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+};
+
+window.setAuthMode = function(mode) {
+  authMode = mode;
+  document.getElementById("tabLogin").classList.toggle("active", mode === "login");
+  document.getElementById("tabSignup").classList.toggle("active", mode === "signup");
+  document.getElementById("signupFields").style.display = mode === "signup" ? "block" : "none";
+  document.getElementById("authSubmitBtn").textContent = mode === "signup" ? "Create account" : "Log in";
+  document.getElementById("authError").style.display = "none";
+};
+
+window.toggleAdminField = function() {
+  const f = document.getElementById("adminCodeField");
+  f.style.display = f.style.display === "none" ? "block" : "none";
+};
+
+function showAuthError(msg) {
+  const el = document.getElementById("authError");
+  el.textContent = msg; el.style.display = "block";
+}
+
+window.submitAuth = async function() {
+  const matric = document.getElementById("matric").value.trim().toUpperCase();
+  const passcode = document.getElementById("passcode").value;
+  if (!matric || !passcode) { showAuthError("Enter your matric number and passcode."); return; }
+
+  const userRef = doc(db, "users", matric);
+  try {
+    if (authMode === "signup") {
+      const name = document.getElementById("suName").value.trim();
+      const username = document.getElementById("suUsername").value.trim();
+      if (!name || !username) { showAuthError("Enter your full name and a username."); return; }
+      const existing = await getDoc(userRef);
+      if (existing.exists()) { showAuthError("This matric number is already registered. Try logging in."); return; }
+      const adminCode = document.getElementById("adminCode").value;
+      const isAdmin = adminCode && adminCode === ADMIN_PHRASE;
+      await setDoc(userRef, { matric, name, username, passcode, isAdmin: !!isAdmin, joinedAt: serverTimestamp() });
+      me = { matric, username, name, isAdmin: !!isAdmin };
+    } else {
+      const snap = await getDoc(userRef);
+      if (!snap.exists()) { showAuthError("No account found for that matric number. Sign up first."); return; }
+      const data = snap.data();
+      if (data.passcode !== passcode) { showAuthError("Wrong passcode."); return; }
+      me = { matric, username: data.username, name: data.name, isAdmin: !!data.isAdmin };
+    }
+    localStorage.setItem("colnet_session", JSON.stringify({ matric: me.matric }));
+    enterApp();
+  } catch (e) {
+    showAuthError("Something went wrong: " + e.message);
+  }
+};
+
+window.logout = function() {
+  localStorage.removeItem("colnet_session");
+  me = null;
+  if (unsubFeed) unsubFeed();
+  if (unsubDmList) unsubDmList();
+  if (unsubChat) unsubChat();
+  document.getElementById("app").style.display = "none";
+  document.getElementById("authScreen").style.display = "flex";
+};
+
+async function tryAutoLogin() {
+  const raw = localStorage.getItem("colnet_session");
+  if (!raw) return;
+  try {
+    const { matric } = JSON.parse(raw);
+    const snap = await getDoc(doc(db, "users", matric));
+    if (snap.exists()) {
+      const data = snap.data();
+      me = { matric, username: data.username, name: data.name, isAdmin: !!data.isAdmin };
+      enterApp();
+    }
+  } catch (e) { }
+}
+
+function enterApp() {
+  document.getElementById("authScreen").style.display = "none";
+  document.getElementById("app").style.display = "flex";
+  document.getElementById("profileName").textContent = me.name || me.username;
+  document.getElementById("profileMeta").textContent = "@" + me.username + " · " + me.matric;
+  document.getElementById("profileAdminBadge").innerHTML = me.isAdmin ? '<span class="admin-badge">ADMIN</span>' : "";
+  document.getElementById("adminNavBtn").style.display = me.isAdmin ? "flex" : "none";
+  listenFeed();
+  listenDmList();
+  renderCalendar();
+  if (me.isAdmin) loadAdminData();
+}
+
+window.switchTab = function(name) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-" + name).classList.add("active");
+  document.querySelectorAll(".navbtn").forEach(b => b.classList.remove("active"));
+  const btn = document.querySelector('.navbtn[data-view="' + name + '"]');
+  if (btn) btn.classList.add("active");
+  window.scrollTo(0,0);
+  if (name === "rooms") renderRoomsList();
+  if (name === "calendar") renderCalendar();
+  if (name === "admin") loadAdminData();
+};
+
+function listenFeed() {
+  if (unsubFeed) unsubFeed();
+  const q = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100));
+  unsubFeed = onSnapshot(q, snap => {
+    const posts = [];
+    snap.forEach(d => posts.push({ id: d.id, ...d.data() }));
+    renderFeed(posts);
+    renderPulse(posts);
+  });
+}
+
+function renderFeed(posts) {
+  const list = document.getElementById("feedList");
+  if (!posts.length) { list.innerHTML = '<div class="empty"><h3>No posts yet</h3></div>'; return; }
+  list.innerHTML = posts.map(p => {
+    const t = tagLabels[p.tag] || tagLabels.gist;
+    const likes = p.likes || [];
+    const liked = likes.includes(me.matric);
+    const comments = p.comments || [];
+    return `<div class="post"><div class="post-head"><div class="post-author"><div class="avatar">${initials(p.authorName)}</div><div><div class="post-author-name">${escapeHtml(p.authorName)}</div><div class="post-time">${fmtTime(p.createdAt)}</div></div></div><span class="tag">${t.label}</span></div><div class="post-text">${escapeHtml(p.text)}</div>${p.imageUrl ? `<img src="${p.imageUrl}" class="post-image" alt="post image">` : ''}<div class="post-actions"><button class="${liked ? 'liked' : ''}" onclick="toggleLike('${p.id}')">❤ ${likes.length}</button><button onclick="toggleComments('${p.id}')">💬 ${comments.length}</button></div><div class="comments-block" id="comments-${p.id}">${comments.map(c => `<div class="comment"><b>${escapeHtml(c.authorName)}:</b> ${escapeHtml(c.text)}</div>`).join('')}<div class="comment-input-row"><input type="text" id="commentInput-${p.id}" placeholder="Comment…" onkeydown="if(event.key==='Enter')submitComment('${p.id}')"><button onclick="submitComment('${p.id}')">Send</button></div></div></div>`;
+  }).join("");
+}
+
+function renderPulse(posts) {
+  const counts = {};
+  posts.forEach(p => counts[p.tag] = (counts[p.tag] || 0) + 1);
+  const chips = [`📌 ${posts.length}`, `📢 ${counts.announcement || 0}`, `💬 ${counts.gist || 0}`];
+  document.getElementById("pulseRow").innerHTML = chips.map(c => `<span class="pulse-chip">${c}</span>`).join("");
+}
+
+window.submitPost = async function() {
+  const textEl = document.getElementById("postText");
+  const tagEl = document.getElementById("postTag");
+  const text = textEl.value.trim();
+  if (!text && !selectedImage) return;
+  
+  let imageUrl = null;
+  if (selectedImage) {
+    const timestamp = Date.now();
+    const storageRef = ref(storage, `posts/${me.matric}/${timestamp}`);
+    await uploadBytes(storageRef, selectedImage);
+    imageUrl = await getDownloadURL(storageRef);
+  }
+
+  await addDoc(collection(db, "posts"), {
+    author: me.matric, authorName: me.name || me.username, tag: tagEl.value, text,
+    imageUrl: imageUrl || null, likes: [], comments: [], createdAt: serverTimestamp()
+  });
+  textEl.value = "";
+  selectedImage = null;
+  document.getElementById("imagePreview").style.display = "none";
+  document.getElementById("imageInput").value = "";
+};
+
+window.toggleLike = async function(postId) {
+  const ref = doc(db, "posts", postId);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) return;
+  const likes = snap.data().likes || [];
+  if (likes.includes(me.matric)) await updateDoc(ref, { likes: arrayRemove(me.matric) });
+  else await updateDoc(ref, { likes: arrayUnion(me.matric) });
+};
+
+window.toggleComments = function(postId) {
+  document.getElementById("comments-" + postId).classList.toggle("open");
+};
+
+window.submitComment = async function(postId) {
+  const input = document.getElementById("commentInput-" + postId);
+  const text = input.value.trim();
+  if (!text) return;
+  const ref = doc(db, "posts", postId);
+  await updateDoc(ref, { comments: arrayUnion({ author: me.matric, authorName: me.name || me.username, text, at: Date.now() }) });
+  input.value = "";
+};
+
+function renderRoomsList() {
+  document.getElementById("roomsList").innerHTML = ROOMS.map(r => `<div class="room" onclick="openThread('room','${r.id}','${escapeHtml(r.name)}','${escapeHtml(r.desc)}')"><div class="room-icon">${r.icon}</div><div class="room-body"><div class="room-name">${escapeHtml(r.name)}</div><div class="room-last">${escapeHtml(r.desc)}</div></div></div>`).join("");
+}
+
+window.openThread = function(type, id, title, sub) {
+  currentThread = { type, id, title, sub };
+  document.getElementById("chatTitle").textContent = title;
+  document.getElementById("chatSub").textContent = sub;
+  document.getElementById("chatInputBar").style.display = "flex";
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-chat").classList.add("active");
+  const path = type === "room" ? `rooms/${id}/messages` : `dms/${id}/messages`;
+  if (unsubChat) unsubChat();
+  const q = query(collection(db, path), orderBy("createdAt", "asc"), limit(200));
+  unsubChat = onSnapshot(q, snap => {
+    const msgs = [];
+    snap.forEach(d => msgs.push(d.data()));
+    renderChat(msgs);
+  });
+};
+
+window.closeChat = function() {
+  if (unsubChat) { unsubChat(); unsubChat = null; }
+  currentThread = null;
+  switchTab("rooms");
+};
+
+function renderChat(msgs) {
+  const body = document.getElementById("chatBody");
+  body.innerHTML = msgs.map(m => `<div class="msg ${m.author === me.matric ? 'msg-me' : 'msg-them'}">${m.author !== me.matric ? `<div class="msg-sender">${escapeHtml(m.authorName)}</div>` : ""}${escapeHtml(m.text)}<span class="msg-time">${fmtTime(m.createdAt)}</span></div>`).join("");
+  setTimeout(() => { body.scrollTop = body.scrollHeight; }, 50);
+}
+
+window.sendMessage = async function() {
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+  if (!text || !currentThread) return;
+  const path = currentThread.type === "room" ? `rooms/${currentThread.id}/messages` : `dms/${currentThread.id}/messages`;
+  await addDoc(collection(db, path), { author: me.matric, authorName: me.name || me.username, text, createdAt: serverTimestamp() });
+  if (currentThread.type === "dm") {
+    await setDoc(doc(db, "dms", currentThread.id), { participants: currentThread.id.split("__"), lastText: text, updatedAt: serverTimestamp() }, { merge: true });
+  }
+  input.value = "";
+};
+
+function listenDmList() {
+  if (unsubDmList) unsubDmList();
+  const q = query(collection(db, "dms"), where("participants", "array-contains", me.matric));
+  unsubDmList = onSnapshot(q, async snap => {
+    const dms = [];
+    for (const d of snap.docs) {
+      const data = d.data();
+      const otherMatric = (data.participants || []).find(p => p !== me.matric);
+      let otherName = otherMatric;
+      if (otherMatric) {
+        const otherSnap = await getDoc(doc(db, "users", otherMatric));
+        if (otherSnap.exists()) otherName = otherSnap.data().name || otherSnap.data().username;
+      }
+      dms.push({ id: d.id, otherName, otherMatric, lastText: data.lastText || "No messages yet" });
+    }
+    renderDmList(dms);
+  });
+}
+
+function renderDmList(dms) {
+  const list = document.getElementById("dmList");
+  if (!dms.length) { list.innerHTML = '<div class="empty"><h3>No conversations yet</h3></div>'; return; }
+  list.innerHTML = dms.map(d => `<div class="room" onclick="openThread('dm','${d.id}','${escapeHtml(d.otherName)}','${escapeHtml(d.otherMatric)}')"><div class="room-icon">🧑</div><div class="room-body"><div class="room-name">${escapeHtml(d.otherName)}</div><div class="room-last">${escapeHtml(d.lastText)}</div></div></div>`).join("");
+}
+
+window.openNewDm = function() { document.getElementById("newDmModal").classList.add("open"); };
+window.closeNewDm = function() { document.getElementById("newDmModal").classList.remove("open"); document.getElementById("dmError").style.display = "none"; document.getElementById("dmTargetMatric").value = ""; };
+window.startNewDm = async function() {
+  const target = document.getElementById("dmTargetMatric").value.trim().toUpperCase();
+  const errEl = document.getElementById("dmError");
+  if (!target) return;
+  if (target === me.matric) { errEl.textContent = "You can't message yourself."; errEl.style.display = "block"; return; }
+  const targetSnap = await getDoc(doc(db, "users", target));
+  if (!targetSnap.exists()) { errEl.textContent = "No student found with that matric number."; errEl.style.display = "block"; return; }
+  const dmId = dmIdFor(me.matric, target);
+  await setDoc(doc(db, "dms", dmId), { participants: [me.matric, target] }, { merge: true });
+  closeNewDm();
+  switchTab("dms");
+  const otherName = targetSnap.data().name || targetSnap.data().username;
+  openThread("dm", dmId, otherName, target);
+};
+
+const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+async function renderCalendar() {
+  const q = query(collection(db, "events"), orderBy("date", "asc"), limit(100));
+  const snap = await getDocs(q);
+  const events = [];
+  snap.forEach(d => events.push({ id: d.id, ...d.data() }));
+  const list = document.getElementById("calendarList");
+  if (!events.length) { list.innerHTML = '<div class="empty"><h3>No events yet</h3></div>'; return; }
+  let html = ""; let lastMonth = "";
+  events.forEach(ev => {
+    const d = new Date(ev.date + "T00:00:00");
+    const monthKey = monthNames[d.getMonth()] + " " + d.getFullYear();
+    if (monthKey !== lastMonth) { html += `<div class="section-title">${monthKey}</div>`; lastMonth = monthKey; }
+    html += `<div class="room"><div class="room-icon" style="background:linear-gradient(135deg, var(--primary), var(--accent)); width:48px;">${d.getDate()}</div><div class="room-body"><div class="room-name">${escapeHtml(ev.title)}</div><div class="room-last">📍 ${escapeHtml(ev.loc || "TBA")}</div></div></div>`;
+  });
+  list.innerHTML = html;
+}
+
+window.submitEvent = async function() {
+  const title = document.getElementById("evTitle").value.trim();
+  const date = document.getElementById("evDate").value;
+  const loc = document.getElementById("evLoc").value.trim();
+  if (!title || !date) return;
+  await addDoc(collection(db, "events"), { title, date, loc, createdBy: me.matric, createdAt: serverTimestamp() });
+  document.getElementById("evTitle").value = ""; document.getElementById("evDate").value = ""; document.getElementById("evLoc").value = "";
+  renderCalendar();
+};
+
+async function loadAdminData() {
+  if (!me.isAdmin) return;
+  const usersSnap = await getDocs(collection(db, "users"));
+  const users = []; usersSnap.forEach(d => users.push({ id: d.id, ...d.data() }));
+  document.getElementById("userCount").textContent = users.length;
+  document.getElementById("adminUsers").innerHTML = users.map(u => `<div class="room"><div class="room-body"><div class="room-name">${escapeHtml(u.name || u.username)} ${u.isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</div><div class="room-last">@${escapeHtml(u.username)} · ${escapeHtml(u.matric)}</div></div><button class="imgbtn" style="color:var(--accent); font-size:11px;" onclick="adminDeleteUser('${u.id}')">Remove</button></div>`).join("") || '<div class="empty"><p>No students yet.</p></div>';
+  const postsQ = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100));
+  const postsSnap = await getDocs(postsQ);
+  const posts = []; postsSnap.forEach(d => posts.push({ id: d.id, ...d.data() }));
+  document.getElementById("postCount").textContent = posts.length;
+  document.getElementById("adminPosts").innerHTML = posts.map(p => `<div class="room"><div class="room-body"><div class="room-name">${escapeHtml(p.authorName)}</div><div class="room-last">${escapeHtml((p.text||"").slice(0,50))}</div></div><button class="imgbtn" style="color:var(--accent); font-size:11px;" onclick="adminDeletePost('${p.id}')">Delete</button></div>`).join("") || '<div class="empty"><p>No posts yet.</p></div>';
+}
+
+window.adminDeleteUser = async function(matric) { if (!confirm("Remove this account?")) return; await deleteDoc(doc(db, "users", matric)); loadAdminData(); };
+window.adminDeletePost = async function(postId) { if (!confirm("Delete this post?")) return; await deleteDoc(doc(db, "posts", postId)); loadAdminData(); };
+
+renderRoomsList();
+tryAutoLogin();
+</script>
+</body>
+</html>
