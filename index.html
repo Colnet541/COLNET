@@ -6,164 +6,244 @@
 <title>COLNET — Federal College of Education</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F3EFE2; --bg-soft: #EAE4D2; --card: #FFFDF7; --ink: #1C2B22; --ink-soft: #5B6459;
-    --line: #DCD4BC; --green: #1B4332; --green-soft: #2D6A4F; --gold: #C8940A; --gold-soft: #F0DDA0;
-    --red: #B23A2E; --red-soft: #F3DCD8;
-    --shadow: 0 1px 2px rgba(28,43,34,0.06), 0 6px 16px rgba(28,43,34,0.07);
-    --radius: 14px;
-    font-family: "IBM Plex Sans", -apple-system, sans-serif;
+    --bg: #FFFFFF;
+    --bg-soft: #F8FAFB;
+    --card: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-soft: #666666;
+    --line: #E5E7EB;
+    --primary: #0066FF;
+    --primary-dark: #0052CC;
+    --accent: #FF3B30;
+    --gold: #FFB800;
+    --green: #00D084;
+    --purple: #7C3AED;
+    --pink: #FF6B9D;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.12);
+    --radius: 16px;
+    font-family: "Poppins", -apple-system, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #131811; --bg-soft: #1B221C; --card: #1E251E; --ink: #EDE9DA; --ink-soft: #A6ADA0;
-      --line: #333B2F; --green: #4E9776; --green-soft: #6FB18F; --gold: #E3B23C; --gold-soft: #4A3E1C;
-      --red: #E08174; --red-soft: #402522;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 20px rgba(0,0,0,0.35);
+      --bg: #0F1117;
+      --bg-soft: #1C1F26;
+      --card: #161B22;
+      --ink: #F0F6FC;
+      --ink-soft: #C9D1D9;
+      --line: #30363D;
     }
   }
+  :root[data-theme="dark"] {
+    --bg: #0F1117;
+    --bg-soft: #1C1F26;
+    --card: #161B22;
+    --ink: #F0F6FC;
+    --ink-soft: #C9D1D9;
+    --line: #30363D;
+  }
+
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); height: 100%; }
   body { display: flex; justify-content: center; }
-  #app, #authScreen { width: 100%; max-width: 480px; min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); position: relative; }
-  h1, h2, h3 { font-family: "Fraunces", serif; margin: 0; }
+  #app, #authScreen { width: 100%; max-width: 500px; min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); position: relative; }
+  h1, h2, h3 { font-family: "Poppins", sans-serif; margin: 0; font-weight: 700; }
 
-  /* ---------- Auth screen ---------- */
+  /* Auth */
   #authScreen { justify-content: center; padding: 32px 24px; }
   .auth-logo { text-align: center; margin-bottom: 8px; }
-  .auth-logo .wordmark { font-family: "Fraunces", serif; font-size: 36px; font-weight: 700; color: var(--green); }
-  .auth-logo .wordmark span { color: var(--gold); }
-  .auth-sub { text-align: center; color: var(--ink-soft); font-size: 13.5px; margin-bottom: 28px; }
-  .auth-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
-  .auth-tabs { display: flex; margin-bottom: 16px; background: var(--bg-soft); border-radius: 999px; padding: 3px; }
-  .auth-tab { flex: 1; text-align: center; padding: 8px 0; font-size: 13.5px; font-weight: 600; border-radius: 999px; cursor: pointer; color: var(--ink-soft); }
-  .auth-tab.active { background: var(--green); color: #FBF8EF; }
-  .field-label { font-size: 12px; color: var(--ink-soft); margin: 12px 0 4px; }
-  .field-label:first-child { margin-top: 0; }
+  .auth-logo .wordmark { font-size: 44px; font-weight: 800; margin-bottom: 8px; }
+  .col-part { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .net-part { color: var(--accent); }
+  .auth-sub { text-align: center; color: var(--ink-soft); font-size: 14px; margin-bottom: 32px; }
+  .auth-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+  .auth-tabs { display: flex; margin-bottom: 20px; gap: 8px; }
+  .auth-tab { flex: 1; text-align: center; padding: 12px 0; font-size: 14px; font-weight: 600; border-radius: 12px; cursor: pointer; color: var(--ink-soft); background: var(--bg-soft); border: 2px solid transparent; }
+  .auth-tab.active { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
+  .field-label { font-size: 13px; color: var(--ink-soft); margin: 14px 0 6px; font-weight: 600; }
   input.authinput {
-    width: 100%; border: 1px solid var(--line); background: var(--bg-soft); color: var(--ink);
-    border-radius: 10px; padding: 11px 12px; font-size: 14.5px; font-family: inherit; outline: none;
+    width: 100%; border: 2px solid var(--line); background: var(--bg-soft); color: var(--ink);
+    border-radius: 12px; padding: 12px 14px; font-size: 15px; font-family: inherit; outline: none; transition: all 0.2s;
   }
+  input.authinput:focus { border-color: var(--primary); background: var(--card); }
   .authbtn {
-    width: 100%; margin-top: 18px; background: var(--green); color: #FBF8EF; border: none;
-    border-radius: 999px; padding: 12px 0; font-size: 14.5px; font-weight: 700; font-family: inherit; cursor: pointer;
+    width: 100%; margin-top: 20px; background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; border: none; border-radius: 12px; padding: 14px 0; font-size: 15px; font-weight: 700;
+    font-family: inherit; cursor: pointer; transition: all 0.2s;
   }
   .authbtn:active { transform: scale(0.98); }
-  .admin-toggle { text-align: center; margin-top: 14px; font-size: 12px; color: var(--ink-soft); text-decoration: underline; cursor: pointer; }
-  .auth-error { background: var(--red-soft); color: var(--red); font-size: 12.5px; padding: 8px 10px; border-radius: 8px; margin-top: 12px; display: none; }
-  .auth-note { font-size: 11px; color: var(--ink-soft); text-align: center; margin-top: 18px; line-height: 1.5; }
+  .admin-toggle { text-align: center; margin-top: 14px; font-size: 13px; color: var(--primary); cursor: pointer; text-decoration: underline; }
+  .auth-error { background: rgba(255,59,48,0.1); color: var(--accent); font-size: 13px; padding: 10px 12px; border-radius: 10px; margin-top: 12px; display: none; border-left: 4px solid var(--accent); }
+  .auth-note { font-size: 12px; color: var(--ink-soft); text-align: center; margin-top: 20px; line-height: 1.5; }
 
-  /* ---------- Header ---------- */
-  header.top { padding: 18px 18px 14px; background: var(--green); color: #FBF8EF; border-radius: 0 0 20px 20px; box-shadow: var(--shadow); }
+  /* Header */
+  header.top {
+    padding: 20px 18px 16px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    border-radius: 0 0 24px 24px;
+    box-shadow: var(--shadow);
+  }
   .brandrow { display: flex; align-items: baseline; justify-content: space-between; }
-  .wordmark { font-size: 24px; font-weight: 700; letter-spacing: 0.2px; color: #FBF8EF; }
-  .wordmark span { color: var(--gold); }
-  .campus-tag { font-size: 11.5px; color: #CFE3D6; margin-top: 2px; }
-  .pulse { display: flex; gap: 10px; margin-top: 14px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+  .wordmark { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+  .wordmark .col { color: white; }
+  .wordmark .net { color: #FFD700; }
+  .campus-tag { font-size: 12px; color: rgba(255,255,255,0.9); margin-top: 4px; }
+  .pulse { display: flex; gap: 10px; margin-top: 14px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
   .pulse::-webkit-scrollbar { display: none; }
-  .pulse-chip { flex: 0 0 auto; background: rgba(255,255,255,0.1); color: #EFE8D2; font-size: 12px; padding: 6px 12px; border-radius: 999px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.14); }
+  .pulse-chip { flex: 0 0 auto; background: rgba(255,255,255,0.2); color: white; font-size: 12px; padding: 7px 13px; border-radius: 20px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.3); }
 
-  main { flex: 1; padding: 16px 16px 90px; overflow-y: auto; }
+  main { flex: 1; padding: 16px 16px 100px; overflow-y: auto; }
   .view { display: none; }
   .view.active { display: block; }
 
-  .composer { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); margin-bottom: 18px; }
-  .composer textarea { width: 100%; border: none; background: transparent; resize: none; font-family: inherit; font-size: 14.5px; color: var(--ink); min-height: 44px; outline: none; }
-  .composer-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; gap: 8px; }
-  select.tagpick, input.smallinput { border: 1px solid var(--line); background: var(--bg-soft); color: var(--ink); border-radius: 999px; padding: 6px 10px; font-size: 12.5px; font-family: inherit; }
-  button.postbtn { background: var(--green); color: #FBF8EF; border: none; border-radius: 999px; padding: 8px 18px; font-size: 13.5px; font-weight: 600; font-family: inherit; cursor: pointer; }
+  /* Composer */
+  .composer { background: var(--card); border: 2px solid var(--line); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .composer textarea {
+    width: 100%; border: none; background: transparent; resize: none; font-family: inherit;
+    font-size: 15px; color: var(--ink); min-height: 50px; outline: none;
+  }
+  .composer textarea::placeholder { color: var(--ink-soft); }
+  .composer-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; gap: 10px; flex-wrap: wrap; }
+  .imgbtn {
+    background: var(--bg-soft); border: 2px solid var(--line); color: var(--ink-soft);
+    border-radius: 10px; padding: 10px 14px; font-size: 13px; font-family: inherit; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .imgbtn:hover { border-color: var(--primary); color: var(--primary); }
+  #imageInput { display: none; }
+  .img-preview { max-width: 100%; height: auto; border-radius: 12px; margin-top: 10px; }
+  select.tagpick {
+    border: 2px solid var(--line); background: var(--bg-soft); color: var(--ink);
+    border-radius: 10px; padding: 8px 12px; font-size: 13px; font-family: inherit; cursor: pointer;
+  }
+  button.postbtn {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; border: none; border-radius: 10px; padding: 10px 20px; font-size: 14px;
+    font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.2s;
+  }
   button.postbtn:active { transform: scale(0.97); }
-  button.ghostbtn { background: none; border: 1px solid var(--line); color: var(--ink-soft); border-radius: 999px; padding: 7px 14px; font-size: 12.5px; font-family: inherit; cursor: pointer; }
 
-  .post { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; margin-bottom: 12px; box-shadow: var(--shadow); }
-  .post-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-  .post-author { display: flex; align-items: center; gap: 8px; }
-  .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gold-soft); color: var(--green); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; font-family: "Fraunces", serif; flex: 0 0 auto; }
-  .post-author-name { font-size: 13.5px; font-weight: 600; }
-  .post-time { font-size: 11.5px; color: var(--ink-soft); }
-  .tag { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 999px; flex: 0 0 auto; }
-  .tag-announcement { background: var(--gold-soft); color: #6B4E00; }
-  .tag-gist { background: var(--red-soft); color: var(--red); }
-  .tag-event { background: #D8E6DC; color: var(--green); }
-  .tag-lostfound { background: var(--bg-soft); color: var(--ink-soft); border: 1px solid var(--line); }
-  .post-text { font-size: 14.5px; line-height: 1.5; margin-bottom: 10px; white-space: pre-wrap; word-break: break-word; }
-  .post-actions { display: flex; gap: 18px; font-size: 12.5px; color: var(--ink-soft); }
-  .post-actions button { background: none; border: none; color: var(--ink-soft); font-family: inherit; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 0; }
-  .post-actions button.liked { color: var(--red); font-weight: 600; }
-  .comments-block { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; display: none; }
+  /* Posts */
+  .post {
+    background: var(--card); border: 2px solid var(--line); border-radius: var(--radius);
+    padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow);
+  }
+  .post-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .post-author { display: flex; align-items: center; gap: 10px; }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; flex: 0 0 auto;
+  }
+  .post-author-name { font-size: 14px; font-weight: 700; }
+  .post-time { font-size: 12px; color: var(--ink-soft); }
+  .tag { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; flex: 0 0 auto; }
+  .tag-announcement { background: rgba(255,184,0,0.2); color: var(--gold); }
+  .tag-gist { background: rgba(255,59,48,0.2); color: var(--accent); }
+  .tag-event { background: rgba(0,208,132,0.2); color: var(--green); }
+  .tag-lostfound { background: rgba(124,58,237,0.2); color: var(--purple); }
+  .post-text { font-size: 15px; line-height: 1.6; margin-bottom: 12px; white-space: pre-wrap; word-break: break-word; }
+  .post-image { width: 100%; border-radius: 12px; margin-bottom: 12px; display: block; }
+  .post-actions { display: flex; gap: 20px; font-size: 13px; color: var(--ink-soft); }
+  .post-actions button { background: none; border: none; color: var(--ink-soft); font-family: inherit; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 0; transition: all 0.2s; }
+  .post-actions button:hover { color: var(--primary); }
+  .post-actions button.liked { color: var(--accent); font-weight: 700; }
+  .comments-block { margin-top: 12px; border-top: 2px solid var(--line); padding-top: 12px; display: none; }
   .comments-block.open { display: block; }
-  .comment { display: flex; gap: 8px; margin-bottom: 8px; font-size: 13px; }
-  .comment b { font-weight: 600; }
-  .comment-input-row { display: flex; gap: 6px; margin-top: 6px; }
-  .comment-input-row input { flex: 1; border: 1px solid var(--line); background: var(--bg-soft); border-radius: 999px; padding: 7px 12px; font-size: 13px; font-family: inherit; color: var(--ink); outline: none; }
-  .comment-input-row button { background: var(--green); color: #FBF8EF; border: none; border-radius: 999px; padding: 0 14px; font-size: 12.5px; font-family: inherit; cursor: pointer; }
+  .comment { display: flex; gap: 8px; margin-bottom: 10px; font-size: 13px; }
+  .comment b { font-weight: 700; }
+  .comment-input-row { display: flex; gap: 8px; margin-top: 10px; }
+  .comment-input-row input { flex: 1; border: 2px solid var(--line); background: var(--bg-soft); border-radius: 10px; padding: 8px 12px; font-size: 13px; font-family: inherit; color: var(--ink); outline: none; }
+  .comment-input-row button { background: var(--primary); color: white; border: none; border-radius: 10px; padding: 0 14px; font-size: 13px; font-family: inherit; cursor: pointer; }
 
-  .room { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow); cursor: pointer; }
+  /* Rooms */
+  .room {
+    display: flex; align-items: center; gap: 12px; background: var(--card); border: 2px solid var(--line);
+    border-radius: var(--radius); padding: 14px; margin-bottom: 12px; box-shadow: var(--shadow); cursor: pointer;
+    transition: all 0.2s;
+  }
   .room:active { transform: scale(0.99); }
-  .room-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--bg-soft); display: flex; align-items: center; justify-content: center; font-size: 19px; flex: 0 0 auto; }
+  .room-icon { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 22px; flex: 0 0 auto; }
   .room-body { flex: 1; min-width: 0; }
-  .room-name { font-size: 14.5px; font-weight: 600; }
-  .room-last { font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .room-name { font-size: 15px; font-weight: 700; }
+  .room-last { font-size: 13px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  .chat-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: var(--green); color: #FBF8EF; border-radius: 0 0 18px 18px; box-shadow: var(--shadow); }
-  .backbtn { background: rgba(255,255,255,0.12); border: none; color: #FBF8EF; width: 30px; height: 30px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .chat-title { font-family: "Fraunces", serif; font-size: 16px; font-weight: 600; }
-  .chat-sub { font-size: 11px; color: #CFE3D6; }
+  /* Chat */
+  .chat-header {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white; border-radius: 0 0 20px 20px; box-shadow: var(--shadow);
+  }
+  .backbtn { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .chat-title { font-size: 17px; font-weight: 700; }
+  .chat-sub { font-size: 12px; color: rgba(255,255,255,0.9); }
   .chat-body { padding: 14px 16px 100px; display: flex; flex-direction: column; gap: 10px; }
-  .msg { max-width: 78%; padding: 9px 12px; border-radius: 14px; font-size: 14px; line-height: 1.4; box-shadow: var(--shadow); word-break: break-word; }
-  .msg-them { align-self: flex-start; background: var(--card); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
-  .msg-me { align-self: flex-end; background: var(--green); color: #FBF8EF; border-bottom-right-radius: 4px; }
-  .msg-sender { font-size: 11px; font-weight: 700; color: var(--gold); margin-bottom: 2px; }
-  .msg-time { font-size: 10px; opacity: 0.65; margin-top: 3px; display: block; }
-  .chat-input-bar { position: fixed; bottom: 66px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; gap: 8px; padding: 10px 14px; background: var(--bg); border-top: 1px solid var(--line); }
-  .chat-input-bar input { flex: 1; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 10px 14px; font-size: 14px; color: var(--ink); font-family: inherit; outline: none; }
-  .sendbtn { background: var(--green); color: #FBF8EF; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 16px; cursor: pointer; flex: 0 0 auto; }
+  .msg { max-width: 80%; padding: 11px 14px; border-radius: 16px; font-size: 14px; line-height: 1.4; box-shadow: var(--shadow); word-break: break-word; }
+  .msg-them { align-self: flex-start; background: var(--bg-soft); border: 2px solid var(--line); border-bottom-left-radius: 4px; }
+  .msg-me { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 4px; }
+  .msg-sender { font-size: 12px; font-weight: 700; color: var(--ink-soft); margin-bottom: 3px; }
+  .msg-time { font-size: 11px; opacity: 0.7; margin-top: 3px; display: block; }
+  .chat-input-bar {
+    position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 500px; display: flex; gap: 10px; padding: 12px 16px;
+    background: var(--bg); border-top: 2px solid var(--line);
+  }
+  .chat-input-bar input { flex: 1; border: 2px solid var(--line); background: var(--bg-soft); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: var(--ink); font-family: inherit; outline: none; }
+  .sendbtn { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; width: 44px; height: 44px; border-radius: 50%; font-size: 18px; cursor: pointer; flex: 0 0 auto; }
 
-  .month-label { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; margin: 18px 0 8px; }
-  .month-label:first-child { margin-top: 0; }
-  .event { display: flex; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow); }
-  .event-date { flex: 0 0 auto; width: 46px; text-align: center; background: var(--gold-soft); color: #6B4E00; border-radius: 10px; padding: 6px 0; }
-  .event-date .d { font-family: "Fraunces", serif; font-size: 17px; font-weight: 700; display: block; line-height: 1; }
-  .event-date .m { font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  /* Calendar */
+  .month-label { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 10px; font-weight: 700; }
+  .event {
+    display: flex; gap: 14px; background: var(--card); border: 2px solid var(--line);
+    border-radius: var(--radius); padding: 14px; margin-bottom: 12px; box-shadow: var(--shadow);
+  }
+  .event-date { flex: 0 0 auto; width: 52px; text-align: center; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-radius: 12px; padding: 8px 4px; }
+  .event-date .d { font-size: 19px; font-weight: 800; display: block; line-height: 1; }
+  .event-date .m { font-size: 11px; font-weight: 700; text-transform: uppercase; }
   .event-body { flex: 1; }
-  .event-title { font-size: 14.5px; font-weight: 600; margin-bottom: 3px; }
-  .event-loc { font-size: 12px; color: var(--ink-soft); }
-
-  .directory-item, .admin-row { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 13px; margin-bottom: 10px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-  .directory-item .dname { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-  .directory-item .ddesc { font-size: 12.5px; color: var(--ink-soft); }
-  .admin-row .aname { font-size: 13.5px; font-weight: 600; }
-  .admin-row .ameta { font-size: 11.5px; color: var(--ink-soft); }
-  .deletebtn { background: var(--red-soft); color: var(--red); border: none; border-radius: 8px; padding: 6px 10px; font-size: 11.5px; font-family: inherit; cursor: pointer; flex: 0 0 auto; }
-  .about-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); margin-bottom: 16px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
-  .about-card b { color: var(--ink); }
-  .profile-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); margin-bottom: 16px; }
-  .profile-card .pname { font-family: "Fraunces", serif; font-size: 19px; font-weight: 600; }
-  .profile-card .pmeta { font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; }
-  .admin-badge { display: inline-block; background: var(--gold-soft); color: #6B4E00; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-top: 6px; }
-  .logoutbtn { width: 100%; margin-top: 4px; background: var(--red-soft); color: var(--red); border: none; border-radius: 999px; padding: 11px 0; font-size: 13.5px; font-weight: 600; font-family: inherit; cursor: pointer; }
+  .event-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .event-loc { font-size: 13px; color: var(--ink-soft); }
 
   .empty { text-align: center; padding: 40px 20px; color: var(--ink-soft); }
-  .empty h3 { font-size: 16px; color: var(--ink); margin-bottom: 6px; }
-  .empty p { margin: 0; font-size: 13px; }
-  .section-title { font-size: 19px; margin-bottom: 14px; }
+  .empty h3 { font-size: 17px; color: var(--ink); margin-bottom: 8px; }
+  .section-title { font-size: 20px; margin-bottom: 16px; }
 
-  nav.bottom { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; background: var(--card); border-top: 1px solid var(--line); padding: 8px 4px calc(8px + env(safe-area-inset-bottom)); z-index: 20; }
-  .navbtn { flex: 1; background: none; border: none; font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--ink-soft); font-size: 9.5px; cursor: pointer; padding: 4px 0; }
-  .navbtn .icon { font-size: 18px; }
-  .navbtn.active { color: var(--green); font-weight: 600; }
+  nav.bottom {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 500px; display: flex; background: var(--card);
+    border-top: 2px solid var(--line); padding: 10px 6px calc(10px + env(safe-area-inset-bottom)); z-index: 20;
+  }
+  .navbtn {
+    flex: 1; background: none; border: none; font-family: inherit;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    color: var(--ink-soft); font-size: 10px; cursor: pointer; padding: 6px 0;
+    transition: all 0.2s;
+  }
+  .navbtn .icon { font-size: 20px; }
+  .navbtn.active { color: var(--primary); font-weight: 700; }
+  .profile-card { background: var(--card); border: 2px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .pname { font-size: 20px; font-weight: 800; }
+  .pmeta { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+  .admin-badge { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-top: 8px; }
+  .logoutbtn {
+    width: 100%; margin-top: 16px; background: rgba(255,59,48,0.1);
+    color: var(--accent); border: none; border-radius: 10px; padding: 12px 0;
+    font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer;
+  }
   #newDmModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 30; align-items: flex-end; justify-content: center; }
   #newDmModal.open { display: flex; }
-  .modal-sheet { background: var(--card); width: 100%; max-width: 480px; border-radius: 20px 20px 0 0; padding: 20px; }
+  .modal-sheet { background: var(--card); width: 100%; max-width: 500px; border-radius: 24px 24px 0 0; padding: 24px; }
 </style>
 </head>
 <body>
 
 <!-- AUTH SCREEN -->
 <div id="authScreen">
-  <div class="auth-logo"><div class="wordmark">COL<span>NET</span></div></div>
+  <div class="auth-logo"><div class="wordmark"><span class="col">COL</span><span class="net">NET</span></div></div>
   <div class="auth-sub">Federal College of Education — campus gist, live</div>
   <div class="auth-card">
     <div class="auth-tabs">
@@ -189,7 +269,7 @@
     </div>
 
     <button class="authbtn" id="authSubmitBtn" onclick="submitAuth()">Log in</button>
-    <div class="admin-toggle" onclick="toggleAdminField()" id="adminToggleLink">Setting up as admin?</div>
+    <div class="admin-toggle" onclick="toggleAdminField()">Setting up as admin?</div>
     <div class="auth-error" id="authError"></div>
   </div>
   <div class="auth-note">Your passcode is stored in COLNET's shared database, not a real secure password system — don't reuse a password you use elsewhere.</div>
@@ -200,13 +280,16 @@
 
   <div class="view active" id="view-feed">
     <header class="top">
-      <div class="brandrow"><div><div class="wordmark">COL<span>NET</span></div><div class="campus-tag">Federal College of Education</div></div></div>
+      <div class="brandrow"><div><div class="wordmark"><span class="col">COL</span><span class="net">NET</span></div><div class="campus-tag">Federal College of Education</div></div></div>
       <div class="pulse" id="pulseRow"></div>
     </header>
     <main>
       <div class="composer">
         <textarea id="postText" placeholder="Wetin dey happen? Drop your gist, announcement or update..."></textarea>
+        <img id="imagePreview" class="img-preview" style="display:none;">
         <div class="composer-row">
+          <button class="imgbtn" onclick="document.getElementById('imageInput').click()">📷 Add image</button>
+          <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
           <select class="tagpick" id="postTag">
             <option value="gist">💬 Gist</option>
             <option value="announcement">📢 Announcement</option>
@@ -221,15 +304,15 @@
   </div>
 
   <div class="view" id="view-rooms">
-    <header class="top"><div class="brandrow"><div><div class="wordmark">Gist Rooms</div><div class="campus-tag">Group chats around campus</div></div></div></header>
+    <header class="top"><div class="brandrow"><div><div class="wordmark"><span class="col">COL</span><span class="net">NET</span></div><div class="campus-tag">Group chats around campus</div></div></div></header>
     <main><div id="roomsList"></div></main>
   </div>
 
   <div class="view" id="view-dms">
     <header class="top">
       <div class="brandrow">
-        <div><div class="wordmark">Messages</div><div class="campus-tag">Chat with other students</div></div>
-        <button class="ghostbtn" style="color:#FBF8EF;border-color:rgba(255,255,255,0.3);" onclick="openNewDm()">+ New</button>
+        <div><div class="wordmark"><span class="col">COL</span><span class="net">NET</span></div><div class="campus-tag">Chat with other students</div></div>
+        <button class="imgbtn" style="background:linear-gradient(135deg, var(--primary), var(--accent)); color:white; border:none;" onclick="openNewDm()">+ New</button>
       </div>
     </header>
     <main><div id="dmList"></div></main>
@@ -248,45 +331,43 @@
   </div>
 
   <div class="view" id="view-calendar">
-    <header class="top"><div class="brandrow"><div><div class="wordmark">Calendar</div><div class="campus-tag">What's coming up at FCE</div></div></div></header>
+    <header class="top"><div class="brandrow"><div><div class="wordmark"><span class="col">COL</span><span class="net">NET</span></div><div class="campus-tag">What's coming up at FCE</div></div></div></header>
     <main>
       <div class="composer">
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
           <input id="evTitle" placeholder="Event title" class="authinput" style="flex:1 1 100%;">
           <input id="evDate" type="date" class="authinput" style="flex:1;">
           <input id="evLoc" placeholder="Location" class="authinput" style="flex:1;">
         </div>
-        <div class="composer-row" style="justify-content:flex-end;"><button class="postbtn" onclick="submitEvent()">Add event</button></div>
+        <div class="composer-row" style="justify-content:flex-end; margin-top:10px;"><button class="postbtn" onclick="submitEvent()">Add event</button></div>
       </div>
       <div id="calendarList"></div>
     </main>
   </div>
 
   <div class="view" id="view-more">
-    <header class="top"><div class="brandrow"><div><div class="wordmark">More</div><div class="campus-tag">Your profile & clubs</div></div></div></header>
+    <header class="top"><div class="brandrow"><div><div class="wordmark"><span class="col">COL</span><span class="net">NET</span></div><div class="campus-tag">Your profile & clubs</div></div></div></header>
     <main>
       <div class="profile-card">
         <div class="pname" id="profileName">—</div>
         <div class="pmeta" id="profileMeta">—</div>
         <div id="profileAdminBadge"></div>
-        <button class="logoutbtn" style="margin-top:14px;" onclick="logout()">Log out</button>
+        <button class="logoutbtn" style="margin-top:18px;" onclick="logout()">Log out</button>
       </div>
-      <div class="about-card"><b>COLNET</b> is FCE's own space for campus gist — news, gist rooms, DMs and events, all in one place.</div>
-      <h3 class="section-title" style="font-size:16px;">Clubs & Societies</h3>
       <div id="directoryList"></div>
     </main>
   </div>
 
   <div class="view" id="view-admin">
-    <header class="top"><div class="brandrow"><div><div class="wordmark">Admin</div><div class="campus-tag">Full visibility over COLNET</div></div></div></header>
+    <header class="top"><div class="brandrow"><div><div class="wordmark"><span class="col">COL</span><span class="net">NET</span></div><div class="campus-tag">Full visibility over COLNET</div></div></div></header>
     <main>
-      <h3 class="section-title" style="font-size:15px;">Registered students (<span id="userCount">0</span>)</h3>
+      <h3 class="section-title">Registered students (<span id="userCount">0</span>)</h3>
       <div id="adminUsers"></div>
-      <h3 class="section-title" style="font-size:15px;">All posts (<span id="postCount">0</span>)</h3>
+      <h3 class="section-title">All posts (<span id="postCount">0</span>)</h3>
       <div id="adminPosts"></div>
-      <h3 class="section-title" style="font-size:15px;">Monitor a gist room</h3>
+      <h3 class="section-title">Monitor a gist room</h3>
       <div id="adminRooms"></div>
-      <h3 class="section-title" style="font-size:15px;">Monitor a DM conversation</h3>
+      <h3 class="section-title">Monitor a DM conversation</h3>
       <div id="adminDms"></div>
     </main>
   </div>
@@ -304,11 +385,11 @@
 <!-- NEW DM MODAL -->
 <div id="newDmModal">
   <div class="modal-sheet">
-    <h3 class="section-title" style="font-size:16px;">Start a new message</h3>
+    <h3 class="section-title" style="font-size:17px;">Start a new message</h3>
     <div class="field-label">Their matric / reg number</div>
     <input class="authinput" id="dmTargetMatric" placeholder="e.g. FCE/CS/22/1045">
-    <div class="composer-row" style="margin-top:14px;">
-      <button class="ghostbtn" onclick="closeNewDm()">Cancel</button>
+    <div class="composer-row" style="margin-top:16px;">
+      <button class="imgbtn" onclick="closeNewDm()">Cancel</button>
       <button class="postbtn" onclick="startNewDm()">Start chat</button>
     </div>
     <div class="auth-error" id="dmError"></div>
@@ -321,6 +402,7 @@ import {
   getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, addDoc,
   onSnapshot, query, orderBy, limit, where, serverTimestamp, arrayUnion, arrayRemove, getDocs
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAivZfvxDFVTGz57wPeGByhTFKqhjPlvck",
@@ -332,10 +414,10 @@ const firebaseConfig = {
 };
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
+const storage = getStorage(fbApp);
 
 const ADMIN_PHRASE = "Colnet-crown-256291";
 
-/* ---------------- Fixed room + club data ---------------- */
 const ROOMS = [
   { id: "general", icon: "🏫", name: "General Gist", desc: "Campus-wide chat, everyone's welcome" },
   { id: "100l", icon: "🎓", name: "100L Freshers", desc: "New students finding their feet" },
@@ -343,15 +425,7 @@ const ROOMS = [
   { id: "hostel", icon: "🛏️", name: "Hostel Life", desc: "Room swaps, roommates, hostel gist" },
   { id: "marketplace", icon: "🛍️", name: "Buy & Sell", desc: "Textbooks, gadgets, hostel items" }
 ];
-const DIRECTORY = [
-  { name: "Students' Union Government (SUG)", desc: "Official student representative body" },
-  { name: "National Association of Nigerian Students (NANS)", desc: "Chapter branch" },
-  { name: "Red Cross Society", desc: "First aid & community service" },
-  { name: "Debate & Literary Club", desc: "Weekly debates, public speaking" },
-  { name: "Christian Fellowship", desc: "Bible study & fellowship meetings" },
-  { name: "Muslim Students' Society", desc: "Weekly halaqa & Jumat coordination" },
-  { name: "Drama & Cultural Troupe", desc: "Performances at college events" }
-];
+
 const tagLabels = {
   announcement: { cls: "tag-announcement", label: "Announcement" },
   gist: { cls: "tag-gist", label: "Gist" },
@@ -359,13 +433,13 @@ const tagLabels = {
   lostfound: { cls: "tag-lostfound", label: "Lost & Found" }
 };
 
-/* ---------------- State ---------------- */
-let me = null; // { matric, username, isAdmin }
-let currentThread = null; // { type: 'room'|'dm', id, title, sub }
+let me = null;
+let currentThread = null;
 let unsubChat = null;
 let unsubFeed = null;
 let unsubDmList = null;
 let authMode = "login";
+let selectedImage = null;
 
 function escapeHtml(str) {
   const div = document.createElement("div");
@@ -382,7 +456,19 @@ function fmtTime(ts) {
 }
 function dmIdFor(a, b) { return [a, b].sort().join("__"); }
 
-/* ---------------- Auth screen logic ---------------- */
+window.previewImage = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  selectedImage = file;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const preview = document.getElementById("imagePreview");
+    preview.src = e.target.result;
+    preview.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+};
+
 window.setAuthMode = function(mode) {
   authMode = mode;
   document.getElementById("tabLogin").classList.toggle("active", mode === "login");
@@ -454,10 +540,9 @@ async function tryAutoLogin() {
       me = { matric, username: data.username, name: data.name, isAdmin: !!data.isAdmin };
       enterApp();
     }
-  } catch (e) { /* ignore, show auth screen */ }
+  } catch (e) { }
 }
 
-/* ---------------- Enter app ---------------- */
 function enterApp() {
   document.getElementById("authScreen").style.display = "none";
   document.getElementById("app").style.display = "flex";
@@ -465,14 +550,12 @@ function enterApp() {
   document.getElementById("profileMeta").textContent = "@" + me.username + " · " + me.matric;
   document.getElementById("profileAdminBadge").innerHTML = me.isAdmin ? '<span class="admin-badge">ADMIN</span>' : "";
   document.getElementById("adminNavBtn").style.display = me.isAdmin ? "flex" : "none";
-  renderDirectory();
   listenFeed();
   listenDmList();
   renderCalendar();
   if (me.isAdmin) loadAdminData();
 }
 
-/* ---------------- Tabs ---------------- */
 window.switchTab = function(name) {
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
   document.getElementById("view-" + name).classList.add("active");
@@ -480,11 +563,11 @@ window.switchTab = function(name) {
   const btn = document.querySelector('.navbtn[data-view="' + name + '"]');
   if (btn) btn.classList.add("active");
   window.scrollTo(0,0);
+  if (name === "rooms") renderRoomsList();
   if (name === "calendar") renderCalendar();
   if (name === "admin") loadAdminData();
 };
 
-/* ---------------- Feed ---------------- */
 function listenFeed() {
   if (unsubFeed) unsubFeed();
   const q = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100));
@@ -517,9 +600,10 @@ function renderFeed(posts) {
           <span class="tag ${t.cls}">${t.label}</span>
         </div>
         <div class="post-text">${escapeHtml(p.text)}</div>
+        ${p.imageUrl ? `<img src="${p.imageUrl}" class="post-image" alt="post image">` : ''}
         <div class="post-actions">
           <button class="${liked ? 'liked' : ''}" onclick="toggleLike('${p.id}')">❤ ${likes.length}</button>
-          <button onclick="toggleComments('${p.id}')">💬 ${comments.length} Comments</button>
+          <button onclick="toggleComments('${p.id}')">💬 ${comments.length}</button>
         </div>
         <div class="comments-block" id="comments-${p.id}">
           ${comments.map(c => `<div class="comment"><b>${escapeHtml(c.authorName)}:</b> ${escapeHtml(c.text)}</div>`).join("")}
@@ -546,12 +630,24 @@ window.submitPost = async function() {
   const textEl = document.getElementById("postText");
   const tagEl = document.getElementById("postTag");
   const text = textEl.value.trim();
-  if (!text) return;
+  if (!text && !selectedImage) return;
+  
+  let imageUrl = null;
+  if (selectedImage) {
+    const timestamp = Date.now();
+    const storageRef = ref(storage, `posts/${me.matric}/${timestamp}`);
+    await uploadBytes(storageRef, selectedImage);
+    imageUrl = await getDownloadURL(storageRef);
+  }
+
   await addDoc(collection(db, "posts"), {
     author: me.matric, authorName: me.name || me.username, tag: tagEl.value, text,
-    likes: [], comments: [], createdAt: serverTimestamp()
+    imageUrl: imageUrl || null, likes: [], comments: [], createdAt: serverTimestamp()
   });
   textEl.value = "";
+  selectedImage = null;
+  document.getElementById("imagePreview").style.display = "none";
+  document.getElementById("imageInput").value = "";
 };
 
 window.toggleLike = async function(postId) {
@@ -578,7 +674,6 @@ window.submitComment = async function(postId) {
   input.value = "";
 };
 
-/* ---------------- Rooms & chat (shared thread viewer) ---------------- */
 function renderRoomsList() {
   document.getElementById("roomsList").innerHTML = ROOMS.map(r => `
     <div class="room" onclick="openThread('room','${r.id}','${escapeHtml(r.icon + '  ' + r.name)}','${escapeHtml(r.desc)}')">
@@ -610,7 +705,7 @@ function switchToChatView() {
 window.closeChat = function() {
   if (unsubChat) { unsubChat(); unsubChat = null; }
   currentThread = null;
-  switchTab(document.querySelector('.navbtn[data-view="rooms"]') ? "rooms" : "feed");
+  switchTab("rooms");
 };
 
 function renderChat(msgs) {
@@ -641,7 +736,6 @@ window.sendMessage = async function() {
   input.value = "";
 };
 
-/* ---------------- DMs list ---------------- */
 function listenDmList() {
   if (unsubDmList) unsubDmList();
   const q = query(collection(db, "dms"), where("participants", "array-contains", me.matric));
@@ -695,7 +789,6 @@ window.startNewDm = async function() {
   openThread("dm", dmId, otherName, target);
 };
 
-/* ---------------- Calendar ---------------- */
 const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 async function renderCalendar() {
   const q = query(collection(db, "events"), orderBy("date", "asc"), limit(100));
@@ -727,23 +820,26 @@ window.submitEvent = async function() {
   renderCalendar();
 };
 
-/* ---------------- Directory ---------------- */
-function renderDirectory() {
-  document.getElementById("directoryList").innerHTML = DIRECTORY.map(d => `
-    <div class="directory-item"><div><div class="dname">${escapeHtml(d.name)}</div><div class="ddesc">${escapeHtml(d.desc)}</div></div></div>`).join("");
-}
+const DIRECTORY = [
+  { name: "Students' Union Government (SUG)", desc: "Official student representative body" },
+  { name: "National Association of Nigerian Students (NANS)", desc: "Chapter branch" },
+  { name: "Red Cross Society", desc: "First aid & community service" },
+  { name: "Debate & Literary Club", desc: "Weekly debates, public speaking" },
+  { name: "Christian Fellowship", desc: "Bible study & fellowship meetings" },
+  { name: "Muslim Students' Society", desc: "Weekly halaqa & Jumat coordination" },
+  { name: "Drama & Cultural Troupe", desc: "Performances at college events" }
+];
 
-/* ---------------- Admin dashboard ---------------- */
 async function loadAdminData() {
   if (!me.isAdmin) return;
   const usersSnap = await getDocs(collection(db, "users"));
   const users = []; usersSnap.forEach(d => users.push({ id: d.id, ...d.data() }));
   document.getElementById("userCount").textContent = users.length;
   document.getElementById("adminUsers").innerHTML = users.map(u => `
-    <div class="admin-row">
-      <div><div class="aname">${escapeHtml(u.name || u.username)} ${u.isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</div>
-      <div class="ameta">@${escapeHtml(u.username)} · ${escapeHtml(u.matric)}</div></div>
-      <button class="deletebtn" onclick="adminDeleteUser('${u.id}')">Remove</button>
+    <div class="room" style="justify-content:space-between;">
+      <div class="room-body"><div class="room-name">${escapeHtml(u.name || u.username)} ${u.isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</div>
+      <div class="room-last">@${escapeHtml(u.username)} · ${escapeHtml(u.matric)}</div></div>
+      <button class="imgbtn" style="color:var(--accent); font-size:11px;" onclick="adminDeleteUser('${u.id}')">Remove</button>
     </div>`).join("") || '<div class="empty"><p>No students yet.</p></div>';
 
   const postsQ = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100));
@@ -751,13 +847,13 @@ async function loadAdminData() {
   const posts = []; postsSnap.forEach(d => posts.push({ id: d.id, ...d.data() }));
   document.getElementById("postCount").textContent = posts.length;
   document.getElementById("adminPosts").innerHTML = posts.map(p => `
-    <div class="admin-row">
-      <div><div class="aname">${escapeHtml(p.authorName)}</div><div class="ameta">${escapeHtml((p.text||"").slice(0,60))}</div></div>
-      <button class="deletebtn" onclick="adminDeletePost('${p.id}')">Delete</button>
+    <div class="room" style="justify-content:space-between;">
+      <div class="room-body"><div class="room-name">${escapeHtml(p.authorName)}</div><div class="room-last">${escapeHtml((p.text||"").slice(0,60))}</div></div>
+      <button class="imgbtn" style="color:var(--accent); font-size:11px;" onclick="adminDeletePost('${p.id}')">Delete</button>
     </div>`).join("") || '<div class="empty"><p>No posts yet.</p></div>';
 
   document.getElementById("adminRooms").innerHTML = ROOMS.map(r => `
-    <div class="room" onclick="openThread('room','${r.id}','${escapeHtml(r.icon + '  ' + r.name)}','Admin view (read + write)')">
+    <div class="room" onclick="openThread('room','${r.id}','${escapeHtml(r.icon + '  ' + r.name)}','Admin view')">
       <div class="room-icon">${r.icon}</div><div class="room-body"><div class="room-name">${escapeHtml(r.name)}</div></div>
     </div>`).join("");
 
@@ -789,9 +885,9 @@ window.adminDeletePost = async function(postId) {
   loadAdminData();
 };
 
-/* ---------------- Init ---------------- */
 renderRoomsList();
 tryAutoLogin();
 </script>
 </body>
 </html>
+
