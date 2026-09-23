@@ -133,12 +133,8 @@
   .comment-input-row input { flex: 1; border: 1px solid var(--line); background: var(--bg-soft); border-radius: 6px; padding: 7px 10px; font-size: 12px; font-family: inherit; color: var(--ink); outline: none; }
   .comment-input-row button { background: var(--primary); color: var(--bg); border: none; border-radius: 6px; padding: 0 12px; font-size: 12px; font-family: inherit; cursor: pointer; }
 
-  /* Rooms */
-  .room {
-    display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow); cursor: pointer;
-    transition: all 0.2s;
-  }
+  /* Rooms & Navigation */
+  .room { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow); cursor: pointer; transition: all 0.2s; }
   .room:active { opacity: 0.8; }
   .room-icon { width: 44px; height: 44px; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 20px; flex: 0 0 auto; }
   .room-body { flex: 1; min-width: 0; }
@@ -146,11 +142,7 @@
   .room-last { font-size: 12px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   /* Chat */
-  .chat-header {
-    display: flex; align-items: center; gap: 10px; padding: 12px 16px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: var(--bg); border-radius: 0 0 16px 16px; box-shadow: var(--shadow);
-  }
+  .chat-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); border-radius: 0 0 16px 16px; box-shadow: var(--shadow); }
   .backbtn { background: rgba(255,255,255,0.2); border: none; color: var(--bg); width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .chat-title { font-size: 15px; font-weight: 700; }
   .chat-sub { font-size: 11px; color: rgba(255,255,255,0.9); }
@@ -160,40 +152,29 @@
   .msg-me { align-self: flex-end; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); }
   .msg-sender { font-size: 11px; font-weight: 700; color: var(--ink-soft); margin-bottom: 2px; }
   .msg-time { font-size: 10px; opacity: 0.7; margin-top: 2px; display: block; }
-  .chat-input-bar {
-    position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%);
-    width: 100%; max-width: 500px; display: flex; gap: 8px; padding: 10px 14px;
-    background: var(--bg); border-top: 1px solid var(--line);
-  }
+  .chat-input-bar { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; display: flex; gap: 8px; padding: 10px 14px; background: var(--bg); border-top: 1px solid var(--line); }
   .chat-input-bar input { flex: 1; border: 1px solid var(--line); background: var(--bg-soft); border-radius: 6px; padding: 10px 12px; font-size: 13px; color: var(--ink); font-family: inherit; outline: none; }
   .sendbtn { background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 16px; cursor: pointer; flex: 0 0 auto; }
 
+  /* Utilities */
   .empty { text-align: center; padding: 40px 20px; color: var(--ink-soft); }
   .empty h3 { font-size: 15px; color: var(--ink); margin-bottom: 8px; }
   .section-title { font-size: 16px; font-weight: 700; margin: 20px 0 12px; }
 
-  nav.bottom {
-    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 100%; max-width: 500px; display: flex; background: var(--card);
-    border-top: 1px solid var(--line); padding: 8px 6px calc(8px + env(safe-area-inset-bottom)); z-index: 20;
-  }
-  .navbtn {
-    flex: 1; background: none; border: none; font-family: inherit;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    color: var(--ink-soft); font-size: 10px; cursor: pointer; padding: 4px 0;
-    transition: all 0.2s;
-  }
+  /* Navigation */
+  nav.bottom { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; display: flex; background: var(--card); border-top: 1px solid var(--line); padding: 8px 6px calc(8px + env(safe-area-inset-bottom)); z-index: 20; }
+  .navbtn { flex: 1; background: none; border: none; font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--ink-soft); font-size: 10px; cursor: pointer; padding: 4px 0; transition: all 0.2s; }
   .navbtn .icon { font-size: 18px; }
   .navbtn.active { color: var(--primary); font-weight: 700; }
+
+  /* Profile */
   .profile-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
   .pname { font-size: 18px; font-weight: 800; }
   .pmeta { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
   .admin-badge { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 12px; margin-top: 8px; }
-  .logoutbtn {
-    width: 100%; margin-top: 14px; background: rgba(255,123,114,0.1);
-    color: var(--accent); border: none; border-radius: 6px; padding: 10px 0;
-    font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer;
-  }
+  .logoutbtn { width: 100%; margin-top: 14px; background: rgba(255,123,114,0.1); color: var(--accent); border: none; border-radius: 6px; padding: 10px 0; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; }
+
+  /* Modal */
   #newDmModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 30; align-items: flex-end; justify-content: center; }
   #newDmModal.open { display: flex; }
   .modal-sheet { background: var(--card); width: 100%; max-width: 500px; border-radius: 16px 16px 0 0; padding: 20px; border: 1px solid var(--line); border-bottom: none; }
@@ -617,25 +598,38 @@ window.sendMessage = async function() {
   const path = currentThread.type === "room" ? `rooms/${currentThread.id}/messages` : `dms/${currentThread.id}/messages`;
   await addDoc(collection(db, path), { author: me.matric, authorName: me.name || me.username, text, createdAt: serverTimestamp() });
   if (currentThread.type === "dm") {
-    await setDoc(doc(db, "dms", currentThread.id), { participants: currentThread.id.split("__"), lastText: text, updatedAt: serverTimestamp() }, { merge: true });
+    // FIX: Ensure participants array is sorted consistently
+    const participantsArray = currentThread.id.split("__");
+    await setDoc(doc(db, "dms", currentThread.id), { 
+      participants: participantsArray, 
+      lastText: text, 
+      updatedAt: serverTimestamp() 
+    }, { merge: true });
   }
   input.value = "";
 };
 
 function listenDmList() {
   if (unsubDmList) unsubDmList();
-  const q = query(collection(db, "dms"), where("participants", "array-contains", me.matric));
+  // FIX: Order by updatedAt to show most recent conversations first
+  const q = query(
+    collection(db, "dms"), 
+    where("participants", "array-contains", me.matric),
+    orderBy("updatedAt", "desc")
+  );
   unsubDmList = onSnapshot(q, async snap => {
     const dms = [];
     for (const d of snap.docs) {
       const data = d.data();
+      // Only show conversations that have been initialized with lastText
+      if (!data.lastText) continue;
       const otherMatric = (data.participants || []).find(p => p !== me.matric);
       let otherName = otherMatric;
       if (otherMatric) {
         const otherSnap = await getDoc(doc(db, "users", otherMatric));
         if (otherSnap.exists()) otherName = otherSnap.data().name || otherSnap.data().username;
       }
-      dms.push({ id: d.id, otherName, otherMatric, lastText: data.lastText || "No messages yet" });
+      dms.push({ id: d.id, otherName, otherMatric, lastText: data.lastText });
     }
     renderDmList(dms);
   });
@@ -657,7 +651,13 @@ window.startNewDm = async function() {
   const targetSnap = await getDoc(doc(db, "users", target));
   if (!targetSnap.exists()) { errEl.textContent = "No student found with that matric number."; errEl.style.display = "block"; return; }
   const dmId = dmIdFor(me.matric, target);
-  await setDoc(doc(db, "dms", dmId), { participants: [me.matric, target] }, { merge: true });
+  // FIX: Initialize with all required fields including lastText and updatedAt
+  const participantsArray = [me.matric, target].sort();
+  await setDoc(doc(db, "dms", dmId), { 
+    participants: participantsArray, 
+    lastText: "Conversation started",
+    updatedAt: serverTimestamp()
+  }, { merge: true });
   closeNewDm();
   switchTab("dms");
   const otherName = targetSnap.data().name || targetSnap.data().username;
@@ -713,3 +713,4 @@ tryAutoLogin();
 </script>
 </body>
 </html>
+  
