@@ -133,8 +133,12 @@
   .comment-input-row input { flex: 1; border: 1px solid var(--line); background: var(--bg-soft); border-radius: 6px; padding: 7px 10px; font-size: 12px; font-family: inherit; color: var(--ink); outline: none; }
   .comment-input-row button { background: var(--primary); color: var(--bg); border: none; border-radius: 6px; padding: 0 12px; font-size: 12px; font-family: inherit; cursor: pointer; }
 
-  /* Rooms & Navigation */
-  .room { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow); cursor: pointer; transition: all 0.2s; }
+  /* Rooms */
+  .room {
+    display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 12px; margin-bottom: 10px; box-shadow: var(--shadow); cursor: pointer;
+    transition: all 0.2s;
+  }
   .room:active { opacity: 0.8; }
   .room-icon { width: 44px; height: 44px; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 20px; flex: 0 0 auto; }
   .room-body { flex: 1; min-width: 0; }
@@ -142,42 +146,57 @@
   .room-last { font-size: 12px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   /* Chat */
-  .chat-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); border-radius: 0 0 16px 16px; box-shadow: var(--shadow); }
-  .backbtn { background: rgba(255,255,255,0.2); border: none; color: var(--bg); width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .chat-title { font-size: 15px; font-weight: 700; }
-  .chat-sub { font-size: 11px; color: rgba(255,255,255,0.9); }
-  .chat-body { padding: 12px 14px 110px; display: flex; flex-direction: column; gap: 8px; }
-  .msg { max-width: 80%; padding: 10px 12px; border-radius: 12px; font-size: 13px; line-height: 1.4; box-shadow: var(--shadow); word-break: break-word; }
-  .msg-them { align-self: flex-start; background: var(--bg-soft); color: var(--ink); border: 1px solid var(--line); }
-  .msg-me { align-self: flex-end; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); }
-  .msg-sender { font-size: 11px; font-weight: 700; color: var(--ink-soft); margin-bottom: 2px; }
-  .msg-time { font-size: 10px; opacity: 0.7; margin-top: 2px; display: block; }
-  .chat-input-bar { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; display: flex; gap: 8px; padding: 10px 14px; background: var(--bg); border-top: 1px solid var(--line); }
-  .chat-input-bar input { flex: 1; border: 1px solid var(--line); background: var(--bg-soft); border-radius: 6px; padding: 10px 12px; font-size: 13px; color: var(--ink); font-family: inherit; outline: none; }
-  .sendbtn { background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 16px; cursor: pointer; flex: 0 0 auto; }
-
-  /* Utilities */
-  .empty { text-align: center; padding: 40px 20px; color: var(--ink-soft); }
-  .empty h3 { font-size: 15px; color: var(--ink); margin-bottom: 8px; }
-  .section-title { font-size: 16px; font-weight: 700; margin: 20px 0 12px; }
-
-  /* Navigation */
-  nav.bottom { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; display: flex; background: var(--card); border-top: 1px solid var(--line); padding: 8px 6px calc(8px + env(safe-area-inset-bottom)); z-index: 20; }
-  .navbtn { flex: 1; background: none; border: none; font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--ink-soft); font-size: 10px; cursor: pointer; padding: 4px 0; transition: all 0.2s; }
-  .navbtn .icon { font-size: 18px; }
-  .navbtn.active { color: var(--primary); font-weight: 700; }
+  .chat-header {
+    display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--bg); border-bottom: 1px solid var(--line);
+  }
+  .chat-header-close { background: rgba(255,255,255,0.2); border: none; color: var(--bg); border-radius: 6px; padding: 6px 10px; font-size: 13px; font-family: inherit; cursor: pointer; }
+  .chat-header-close:active { opacity: 0.8; }
+  .chat-header-title { flex: 1; }
+  .chat-title { font-weight: 700; font-size: 14px; }
+  .chat-sub { font-size: 11px; opacity: 0.9; }
+  #chatBody { display: flex; flex-direction: column; gap: 10px; }
+  .msg { padding: 10px 12px; border-radius: 12px; max-width: 80%; word-break: break-word; font-size: 14px; line-height: 1.4; }
+  .msg-them { background: var(--card); border: 1px solid var(--line); align-self: flex-start; }
+  .msg-sender { font-size: 11px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+  .msg-me { background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); align-self: flex-end; }
+  .msg-time { display: block; font-size: 10px; margin-top: 4px; opacity: 0.7; }
+  #chatInputBar { display: none; padding: 12px; background: var(--card); border-top: 1px solid var(--line); gap: 8px; }
+  #chatInput { flex: 1; border: 1px solid var(--line); background: var(--bg-soft); border-radius: 20px; padding: 10px 16px; font-size: 14px; font-family: inherit; color: var(--ink); outline: none; }
+  #chatInput::placeholder { color: var(--ink-soft); }
 
   /* Profile */
   .profile-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
   .pname { font-size: 18px; font-weight: 800; }
   .pmeta { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
   .admin-badge { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 12px; margin-top: 8px; }
-  .logoutbtn { width: 100%; margin-top: 14px; background: rgba(255,123,114,0.1); color: var(--accent); border: none; border-radius: 6px; padding: 10px 0; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; }
-
-  /* Modal */
+  .logoutbtn {
+    width: 100%; margin-top: 14px; background: rgba(255,123,114,0.1);
+    color: var(--accent); border: none; border-radius: 6px; padding: 10px 0;
+    font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer;
+  }
   #newDmModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 30; align-items: flex-end; justify-content: center; }
   #newDmModal.open { display: flex; }
   .modal-sheet { background: var(--card); width: 100%; max-width: 500px; border-radius: 16px 16px 0 0; padding: 20px; border: 1px solid var(--line); border-bottom: none; }
+
+  .empty { text-align: center; padding: 40px 20px; color: var(--ink-soft); }
+  .empty h3 { font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+  .section-title { font-size: 16px; font-weight: 700; margin: 20px 0 12px; }
+
+  nav.bottom {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 500px; display: flex; background: var(--card);
+    border-top: 1px solid var(--line); padding: 8px 6px calc(8px + env(safe-area-inset-bottom)); z-index: 20;
+  }
+  .navbtn {
+    flex: 1; background: none; border: none; font-family: inherit;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    color: var(--ink-soft); font-size: 10px; cursor: pointer; padding: 4px 0;
+    transition: all 0.2s;
+  }
+  .navbtn .icon { font-size: 18px; }
+  .navbtn.active { color: var(--primary); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -195,12 +214,10 @@
     <div id="signupFields" style="display:none;">
       <div class="field-label">Full name</div>
       <input class="authinput" id="suName" placeholder="e.g. Blessing Nwachukwu">
-      <div class="field-label">Username</div>
-      <input class="authinput" id="suUsername" placeholder="e.g. blessing_n">
     </div>
 
-    <div class="field-label">Matric / Reg number</div>
-    <input class="authinput" id="matric" placeholder="e.g. FCE/CS/22/1045">
+    <div class="field-label">Username</div>
+    <input class="authinput" id="matric" placeholder="e.g. blessing_n">
     <div class="field-label">Passcode</div>
     <input class="authinput" id="passcode" type="password" placeholder="Choose or enter your passcode">
 
@@ -261,26 +278,30 @@
 
   <div class="view" id="view-chat">
     <div class="chat-header">
-      <button class="backbtn" onclick="closeChat()">←</button>
-      <div><div class="chat-title" id="chatTitle">Room</div><div class="chat-sub" id="chatSub">members</div></div>
+      <div class="chat-header-title">
+        <div class="chat-title" id="chatTitle">—</div>
+        <div class="chat-sub" id="chatSub">—</div>
+      </div>
+      <button class="chat-header-close" onclick="closeChat()">✕</button>
     </div>
-    <main><div class="chat-body" id="chatBody"></div></main>
-    <div class="chat-input-bar" id="chatInputBar">
-      <input id="chatInput" type="text" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendMessage()">
-      <button class="sendbtn" onclick="sendMessage()">⬆</button>
+    <main id="chatBody"></main>
+    <div id="chatInputBar">
+      <input type="text" id="chatInput" placeholder="Type a message…">
+      <button class="postbtn" onclick="sendMessage()">Send</button>
     </div>
   </div>
 
   <div class="view" id="view-calendar">
     <header class="top"><div class="wordmark" style="font-size:20px;">Events</div></header>
     <main>
-      <div class="composer">
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <input id="evTitle" placeholder="Event title" class="authinput" style="flex:1 1 100%;">
-          <input id="evDate" type="date" class="authinput" style="flex:1;">
-          <input id="evLoc" placeholder="Location" class="authinput" style="flex:1;">
-        </div>
-        <div class="composer-row" style="justify-content:flex-end; margin-top:8px;"><button class="postbtn" onclick="submitEvent()">Add</button></div>
+      <div class="composer" style="margin-bottom: 14px;">
+        <div class="field-label">Event name</div>
+        <input class="authinput" id="evTitle" placeholder="e.g. Departmental meeting">
+        <div class="field-label">Date</div>
+        <input class="authinput" id="evDate" type="date">
+        <div class="field-label">Location</div>
+        <input class="authinput" id="evLoc" placeholder="e.g. Lecture Hall 3">
+        <button class="postbtn" style="margin-top:10px;" onclick="submitEvent()">Create event</button>
       </div>
       <div id="calendarList"></div>
     </main>
@@ -322,8 +343,8 @@
 <div id="newDmModal">
   <div class="modal-sheet">
     <h3 class="section-title" style="font-size:15px;">New message</h3>
-    <div class="field-label">Their matric / reg number</div>
-    <input class="authinput" id="dmTargetMatric" placeholder="e.g. FCE/CS/22/1045">
+    <div class="field-label">Username</div>
+    <input class="authinput" id="dmTargetMatric" placeholder="e.g. blessing_n">
     <div class="composer-row" style="margin-top:14px;">
       <button class="imgbtn" onclick="closeNewDm()">Cancel</button>
       <button class="postbtn" onclick="startNewDm()">Start</button>
@@ -348,6 +369,7 @@ const firebaseConfig = {
   messagingSenderId: "71299486324",
   appId: "1:71299486324:web:aae5af8f72e0cf0c303721"
 };
+
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
 const storage = getStorage(fbApp);
@@ -403,30 +425,29 @@ function showAuthError(msg) {
 }
 
 window.submitAuth = async function() {
-  const matric = document.getElementById("matric").value.trim().toUpperCase();
+  const username = document.getElementById("matric").value.trim().toLowerCase();
   const passcode = document.getElementById("passcode").value;
-  if (!matric || !passcode) { showAuthError("Enter your matric number and passcode."); return; }
+  if (!username || !passcode) { showAuthError("Enter your username and passcode."); return; }
 
-  const userRef = doc(db, "users", matric);
+  const userRef = doc(db, "users", username);
   try {
     if (authMode === "signup") {
       const name = document.getElementById("suName").value.trim();
-      const username = document.getElementById("suUsername").value.trim();
-      if (!name || !username) { showAuthError("Enter your full name and a username."); return; }
+      if (!name) { showAuthError("Enter your full name."); return; }
       const existing = await getDoc(userRef);
-      if (existing.exists()) { showAuthError("This matric number is already registered. Try logging in."); return; }
+      if (existing.exists()) { showAuthError("This username is already taken. Try another."); return; }
       const adminCode = document.getElementById("adminCode").value;
       const isAdmin = adminCode && adminCode === ADMIN_PHRASE;
-      await setDoc(userRef, { matric, name, username, passcode, isAdmin: !!isAdmin, joinedAt: serverTimestamp() });
-      me = { matric, username, name, isAdmin: !!isAdmin };
+      await setDoc(userRef, { username, name, passcode, isAdmin: !!isAdmin, joinedAt: serverTimestamp() });
+      me = { username, name, isAdmin: !!isAdmin };
     } else {
       const snap = await getDoc(userRef);
-      if (!snap.exists()) { showAuthError("No account found for that matric number. Sign up first."); return; }
+      if (!snap.exists()) { showAuthError("No account found. Sign up first."); return; }
       const data = snap.data();
       if (data.passcode !== passcode) { showAuthError("Wrong passcode."); return; }
-      me = { matric, username: data.username, name: data.name, isAdmin: !!data.isAdmin };
+      me = { username: data.username, name: data.name, isAdmin: !!data.isAdmin };
     }
-    localStorage.setItem("colnet_session", JSON.stringify({ matric: me.matric }));
+    localStorage.setItem("colnet_session", JSON.stringify({ username: me.username }));
     enterApp();
   } catch (e) {
     showAuthError("Something went wrong: " + e.message);
@@ -447,11 +468,11 @@ async function tryAutoLogin() {
   const raw = localStorage.getItem("colnet_session");
   if (!raw) return;
   try {
-    const { matric } = JSON.parse(raw);
-    const snap = await getDoc(doc(db, "users", matric));
+    const { username } = JSON.parse(raw);
+    const snap = await getDoc(doc(db, "users", username));
     if (snap.exists()) {
       const data = snap.data();
-      me = { matric, username: data.username, name: data.name, isAdmin: !!data.isAdmin };
+      me = { username, name: data.name, isAdmin: !!data.isAdmin };
       enterApp();
     }
   } catch (e) { }
@@ -461,7 +482,7 @@ function enterApp() {
   document.getElementById("authScreen").style.display = "none";
   document.getElementById("app").style.display = "flex";
   document.getElementById("profileName").textContent = me.name || me.username;
-  document.getElementById("profileMeta").textContent = "@" + me.username + " · " + me.matric;
+  document.getElementById("profileMeta").textContent = "@" + me.username;
   document.getElementById("profileAdminBadge").innerHTML = me.isAdmin ? '<span class="admin-badge">ADMIN</span>' : "";
   document.getElementById("adminNavBtn").style.display = me.isAdmin ? "flex" : "none";
   listenFeed();
@@ -499,7 +520,7 @@ function renderFeed(posts) {
   list.innerHTML = posts.map(p => {
     const t = tagLabels[p.tag] || tagLabels.gist;
     const likes = p.likes || [];
-    const liked = likes.includes(me.matric);
+    const liked = likes.includes(me.username);
     const comments = p.comments || [];
     return `<div class="post"><div class="post-head"><div class="post-author"><div class="avatar">${initials(p.authorName)}</div><div><div class="post-author-name">${escapeHtml(p.authorName)}</div><div class="post-time">${fmtTime(p.createdAt)}</div></div></div><span class="tag">${t.label}</span></div><div class="post-text">${escapeHtml(p.text)}</div>${p.imageUrl ? `<img src="${p.imageUrl}" class="post-image" alt="post image">` : ''}<div class="post-actions"><button class="${liked ? 'liked' : ''}" onclick="toggleLike('${p.id}')">❤ ${likes.length}</button><button onclick="toggleComments('${p.id}')">💬 ${comments.length}</button></div><div class="comments-block" id="comments-${p.id}">${comments.map(c => `<div class="comment"><b>${escapeHtml(c.authorName)}:</b> ${escapeHtml(c.text)}</div>`).join('')}<div class="comment-input-row"><input type="text" id="commentInput-${p.id}" placeholder="Comment…" onkeydown="if(event.key==='Enter')submitComment('${p.id}')"><button onclick="submitComment('${p.id}')">Send</button></div></div></div>`;
   }).join("");
@@ -521,13 +542,13 @@ window.submitPost = async function() {
   let imageUrl = null;
   if (selectedImage) {
     const timestamp = Date.now();
-    const storageRef = ref(storage, `posts/${me.matric}/${timestamp}`);
+    const storageRef = ref(storage, `posts/${me.username}/${timestamp}`);
     await uploadBytes(storageRef, selectedImage);
     imageUrl = await getDownloadURL(storageRef);
   }
 
   await addDoc(collection(db, "posts"), {
-    author: me.matric, authorName: me.name || me.username, tag: tagEl.value, text,
+    author: me.username, authorName: me.name || me.username, tag: tagEl.value, text,
     imageUrl: imageUrl || null, likes: [], comments: [], createdAt: serverTimestamp()
   });
   textEl.value = "";
@@ -541,8 +562,8 @@ window.toggleLike = async function(postId) {
   const snap = await getDoc(ref);
   if (!snap.exists()) return;
   const likes = snap.data().likes || [];
-  if (likes.includes(me.matric)) await updateDoc(ref, { likes: arrayRemove(me.matric) });
-  else await updateDoc(ref, { likes: arrayUnion(me.matric) });
+  if (likes.includes(me.username)) await updateDoc(ref, { likes: arrayRemove(me.username) });
+  else await updateDoc(ref, { likes: arrayUnion(me.username) });
 };
 
 window.toggleComments = function(postId) {
@@ -554,7 +575,7 @@ window.submitComment = async function(postId) {
   const text = input.value.trim();
   if (!text) return;
   const ref = doc(db, "posts", postId);
-  await updateDoc(ref, { comments: arrayUnion({ author: me.matric, authorName: me.name || me.username, text, at: Date.now() }) });
+  await updateDoc(ref, { comments: arrayUnion({ author: me.username, authorName: me.name || me.username, text, at: Date.now() }) });
   input.value = "";
 };
 
@@ -587,7 +608,7 @@ window.closeChat = function() {
 
 function renderChat(msgs) {
   const body = document.getElementById("chatBody");
-  body.innerHTML = msgs.map(m => `<div class="msg ${m.author === me.matric ? 'msg-me' : 'msg-them'}">${m.author !== me.matric ? `<div class="msg-sender">${escapeHtml(m.authorName)}</div>` : ""}${escapeHtml(m.text)}<span class="msg-time">${fmtTime(m.createdAt)}</span></div>`).join("");
+  body.innerHTML = msgs.map(m => `<div class="msg ${m.author === me.username ? 'msg-me' : 'msg-them'}">${m.author !== me.username ? `<div class="msg-sender">${escapeHtml(m.authorName)}</div>` : ""}${escapeHtml(m.text)}<span class="msg-time">${fmtTime(m.createdAt)}</span></div>`).join("");
   setTimeout(() => { body.scrollTop = body.scrollHeight; }, 50);
 }
 
@@ -596,9 +617,8 @@ window.sendMessage = async function() {
   const text = input.value.trim();
   if (!text || !currentThread) return;
   const path = currentThread.type === "room" ? `rooms/${currentThread.id}/messages` : `dms/${currentThread.id}/messages`;
-  await addDoc(collection(db, path), { author: me.matric, authorName: me.name || me.username, text, createdAt: serverTimestamp() });
+  await addDoc(collection(db, path), { author: me.username, authorName: me.name || me.username, text, createdAt: serverTimestamp() });
   if (currentThread.type === "dm") {
-    // FIX: Ensure participants array is sorted consistently
     const participantsArray = currentThread.id.split("__");
     await setDoc(doc(db, "dms", currentThread.id), { 
       participants: participantsArray, 
@@ -611,25 +631,23 @@ window.sendMessage = async function() {
 
 function listenDmList() {
   if (unsubDmList) unsubDmList();
-  // FIX: Order by updatedAt to show most recent conversations first
   const q = query(
     collection(db, "dms"), 
-    where("participants", "array-contains", me.matric),
+    where("participants", "array-contains", me.username),
     orderBy("updatedAt", "desc")
   );
   unsubDmList = onSnapshot(q, async snap => {
     const dms = [];
     for (const d of snap.docs) {
       const data = d.data();
-      // Only show conversations that have been initialized with lastText
       if (!data.lastText) continue;
-      const otherMatric = (data.participants || []).find(p => p !== me.matric);
-      let otherName = otherMatric;
-      if (otherMatric) {
-        const otherSnap = await getDoc(doc(db, "users", otherMatric));
+      const otherUsername = (data.participants || []).find(p => p !== me.username);
+      let otherName = otherUsername;
+      if (otherUsername) {
+        const otherSnap = await getDoc(doc(db, "users", otherUsername));
         if (otherSnap.exists()) otherName = otherSnap.data().name || otherSnap.data().username;
       }
-      dms.push({ id: d.id, otherName, otherMatric, lastText: data.lastText });
+      dms.push({ id: d.id, otherName, otherUsername, lastText: data.lastText });
     }
     renderDmList(dms);
   });
@@ -638,21 +656,20 @@ function listenDmList() {
 function renderDmList(dms) {
   const list = document.getElementById("dmList");
   if (!dms.length) { list.innerHTML = '<div class="empty"><h3>No conversations yet</h3></div>'; return; }
-  list.innerHTML = dms.map(d => `<div class="room" onclick="openThread('dm','${d.id}','${escapeHtml(d.otherName)}','${escapeHtml(d.otherMatric)}')"><div class="room-icon">🧑</div><div class="room-body"><div class="room-name">${escapeHtml(d.otherName)}</div><div class="room-last">${escapeHtml(d.lastText)}</div></div></div>`).join("");
+  list.innerHTML = dms.map(d => `<div class="room" onclick="openThread('dm','${d.id}','${escapeHtml(d.otherName)}','@${escapeHtml(d.otherUsername)}')"><div class="room-icon">🧑</div><div class="room-body"><div class="room-name">${escapeHtml(d.otherName)}</div><div class="room-last">${escapeHtml(d.lastText)}</div></div></div>`).join("");
 }
 
 window.openNewDm = function() { document.getElementById("newDmModal").classList.add("open"); };
 window.closeNewDm = function() { document.getElementById("newDmModal").classList.remove("open"); document.getElementById("dmError").style.display = "none"; document.getElementById("dmTargetMatric").value = ""; };
 window.startNewDm = async function() {
-  const target = document.getElementById("dmTargetMatric").value.trim().toUpperCase();
+  const target = document.getElementById("dmTargetMatric").value.trim().toLowerCase();
   const errEl = document.getElementById("dmError");
   if (!target) return;
-  if (target === me.matric) { errEl.textContent = "You can't message yourself."; errEl.style.display = "block"; return; }
+  if (target === me.username) { errEl.textContent = "You can't message yourself."; errEl.style.display = "block"; return; }
   const targetSnap = await getDoc(doc(db, "users", target));
-  if (!targetSnap.exists()) { errEl.textContent = "No student found with that matric number."; errEl.style.display = "block"; return; }
-  const dmId = dmIdFor(me.matric, target);
-  // FIX: Initialize with all required fields including lastText and updatedAt
-  const participantsArray = [me.matric, target].sort();
+  if (!targetSnap.exists()) { errEl.textContent = "No student found with that username."; errEl.style.display = "block"; return; }
+  const dmId = dmIdFor(me.username, target);
+  const participantsArray = [me.username, target].sort();
   await setDoc(doc(db, "dms", dmId), { 
     participants: participantsArray, 
     lastText: "Conversation started",
@@ -661,7 +678,7 @@ window.startNewDm = async function() {
   closeNewDm();
   switchTab("dms");
   const otherName = targetSnap.data().name || targetSnap.data().username;
-  openThread("dm", dmId, otherName, target);
+  openThread("dm", dmId, otherName, "@" + target);
 };
 
 const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -687,7 +704,7 @@ window.submitEvent = async function() {
   const date = document.getElementById("evDate").value;
   const loc = document.getElementById("evLoc").value.trim();
   if (!title || !date) return;
-  await addDoc(collection(db, "events"), { title, date, loc, createdBy: me.matric, createdAt: serverTimestamp() });
+  await addDoc(collection(db, "events"), { title, date, loc, createdBy: me.username, createdAt: serverTimestamp() });
   document.getElementById("evTitle").value = ""; document.getElementById("evDate").value = ""; document.getElementById("evLoc").value = "";
   renderCalendar();
 };
@@ -697,7 +714,7 @@ async function loadAdminData() {
   const usersSnap = await getDocs(collection(db, "users"));
   const users = []; usersSnap.forEach(d => users.push({ id: d.id, ...d.data() }));
   document.getElementById("userCount").textContent = users.length;
-  document.getElementById("adminUsers").innerHTML = users.map(u => `<div class="room"><div class="room-body"><div class="room-name">${escapeHtml(u.name || u.username)} ${u.isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</div><div class="room-last">@${escapeHtml(u.username)} · ${escapeHtml(u.matric)}</div></div><button class="imgbtn" style="color:var(--accent); font-size:11px;" onclick="adminDeleteUser('${u.id}')">Remove</button></div>`).join("") || '<div class="empty"><p>No students yet.</p></div>';
+  document.getElementById("adminUsers").innerHTML = users.map(u => `<div class="room"><div class="room-body"><div class="room-name">${escapeHtml(u.name || u.username)} ${u.isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</div><div class="room-last">@${escapeHtml(u.username)}</div></div><button class="imgbtn" style="color:var(--accent); font-size:11px;" onclick="adminDeleteUser('${u.id}')">Remove</button></div>`).join("") || '<div class="empty"><p>No students yet.</p></div>';
   const postsQ = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100));
   const postsSnap = await getDocs(postsQ);
   const posts = []; postsSnap.forEach(d => posts.push({ id: d.id, ...d.data() }));
@@ -705,12 +722,146 @@ async function loadAdminData() {
   document.getElementById("adminPosts").innerHTML = posts.map(p => `<div class="room"><div class="room-body"><div class="room-name">${escapeHtml(p.authorName)}</div><div class="room-last">${escapeHtml((p.text||"").slice(0,50))}</div></div><button class="imgbtn" style="color:var(--accent); font-size:11px;" onclick="adminDeletePost('${p.id}')">Delete</button></div>`).join("") || '<div class="empty"><p>No posts yet.</p></div>';
 }
 
-window.adminDeleteUser = async function(matric) { if (!confirm("Remove this account?")) return; await deleteDoc(doc(db, "users", matric)); loadAdminData(); };
+window.adminDeleteUser = async function(username) { if (!confirm("Remove this account?")) return; await deleteDoc(doc(db, "users", username)); loadAdminData(); };
 window.adminDeletePost = async function(postId) { if (!confirm("Delete this post?")) return; await deleteDoc(doc(db, "posts", postId)); loadAdminData(); };
+
+// MIGRATION: Run this ONCE in console to migrate from matric-based to username-based system
+window.migrateFromMatricToUsername = async function() {
+  if (!confirm("This will migrate all data from matric to username. Run this ONCE only!")) return;
+  console.log("Starting migration...");
+  
+  try {
+    // 1. Migrate users collection
+    const usersSnap = await getDocs(collection(db, "users"));
+    const usersByMatric = {};
+    const usersByUsername = {};
+    
+    for (const doc of usersSnap.docs) {
+      const data = doc.data();
+      const docId = doc.id;
+      
+      // Check if already migrated (username-based)
+      if (data.username && docId === data.username) {
+        usersByUsername[data.username] = data;
+        console.log("✓ Already migrated:", docId);
+      } else if (data.matric) {
+        // Old matric-based doc
+        usersByMatric[data.matric] = data;
+        // Create new username-based doc
+        const newDoc = { username: data.username, name: data.name, passcode: data.passcode, isAdmin: !!data.isAdmin, joinedAt: data.joinedAt };
+        await setDoc(doc(db, "users", data.username), newDoc);
+        usersByUsername[data.username] = newDoc;
+        console.log("✓ Migrated user:", data.username, "(was", docId + ")");
+      }
+    }
+    
+    // 2. Migrate posts (update author field)
+    const postsSnap = await getDocs(collection(db, "posts"));
+    let postCount = 0;
+    for (const postDoc of postsSnap.docs) {
+      const data = postDoc.data();
+      let updated = false;
+      
+      // Update author if it's a matric
+      if (data.author && !data.author.includes("@")) {
+        const userData = usersByMatric[data.author];
+        if (userData) {
+          await updateDoc(postDoc.ref, { author: userData.username });
+          updated = true;
+        }
+      }
+      
+      // Update comments
+      if (data.comments && data.comments.length > 0) {
+        const updatedComments = data.comments.map(c => {
+          if (c.author && !c.author.includes("@")) {
+            const userData = usersByMatric[c.author];
+            if (userData) {
+              c.author = userData.username;
+            }
+          }
+          return c;
+        });
+        await updateDoc(postDoc.ref, { comments: updatedComments });
+        updated = true;
+      }
+      
+      // Update likes array
+      if (data.likes && data.likes.length > 0) {
+        const updatedLikes = data.likes.map(matric => {
+          const userData = usersByMatric[matric];
+          return userData ? userData.username : matric;
+        });
+        await updateDoc(postDoc.ref, { likes: updatedLikes });
+        updated = true;
+      }
+      
+      if (updated) postCount++;
+    }
+    console.log("✓ Migrated", postCount, "posts");
+    
+    // 3. Migrate DMs
+    const dmsSnap = await getDocs(collection(db, "dms"));
+    let dmCount = 0;
+    for (const dmDoc of dmsSnap.docs) {
+      const data = dmDoc.data();
+      if (data.participants && data.participants.length > 0) {
+        const updatedParticipants = data.participants.map(matric => {
+          const userData = usersByMatric[matric];
+          return userData ? userData.username : matric;
+        }).sort();
+        
+        const newDmId = updatedParticipants.join("__");
+        const newData = { ...data, participants: updatedParticipants };
+        
+        // Create new doc with username-based ID
+        await setDoc(doc(db, "dms", newDmId), newData);
+        
+        // Delete old doc if different ID
+        if (newDmId !== dmDoc.id) {
+          await deleteDoc(dmDoc.ref);
+        }
+        dmCount++;
+      }
+    }
+    console.log("✓ Migrated", dmCount, "DM conversations");
+    
+    // 4. Migrate events
+    const eventsSnap = await getDocs(collection(db, "events"));
+    let eventCount = 0;
+    for (const eventDoc of eventsSnap.docs) {
+      const data = eventDoc.data();
+      if (data.createdBy && !data.createdBy.includes("@")) {
+        const userData = usersByMatric[data.createdBy];
+        if (userData) {
+          await updateDoc(eventDoc.ref, { createdBy: userData.username });
+          eventCount++;
+        }
+      }
+    }
+    console.log("✓ Migrated", eventCount, "events");
+    
+    // 5. Delete old matric-based user docs
+    let deletedCount = 0;
+    for (const matric in usersByMatric) {
+      const username = usersByMatric[matric].username;
+      if (matric !== username) {
+        await deleteDoc(doc(db, "users", matric));
+        deletedCount++;
+      }
+    }
+    console.log("✓ Deleted", deletedCount, "old matric-based user docs");
+    
+    console.log("✅ MIGRATION COMPLETE! Reload the page.");
+    alert("Migration complete! Reload the page now.");
+  } catch (e) {
+    console.error("❌ Migration failed:", e);
+    alert("Migration failed: " + e.message);
+  }
+};
 
 renderRoomsList();
 tryAutoLogin();
 </script>
 </body>
 </html>
-  
